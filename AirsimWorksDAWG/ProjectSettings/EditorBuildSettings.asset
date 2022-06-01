@@ -5,19 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: bfd9351f725f70e46b78006f1f42cb85
-  - enabled: 1
-    path: Assets/Scenes/Lobby.unity
-    guid: 4e977c992252f9942bdc46fee0140909
-  - enabled: 1
-    path: Assets/Scenes/ArenaGame.unity
-    guid: 20e90d665b6cd2b46aff8595467bf409
-  - enabled: 1
-    path: Assets/Scenes/MazeGame.unity
-    guid: b883b6732e20708438afc2765b4a0250
-  - enabled: 1
-    path: Assets/Scenes/RecruitGame.unity
-    guid: b5faba76478ad91478d69204b7aa90f3
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}
