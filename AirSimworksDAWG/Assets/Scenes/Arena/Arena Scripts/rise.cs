@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class rise : MonoBehaviour
 {
+    public AK.Wwise.Event Target;
     public SpawnPrefab spawner;
     public float speed = 1f;
 
@@ -22,5 +23,8 @@ public class rise : MonoBehaviour
     {
         spawner.resetSpawner();
         GameObject.Destroy(gameObject);
+
+        Target.Post(gameObject);
+
     }
 }

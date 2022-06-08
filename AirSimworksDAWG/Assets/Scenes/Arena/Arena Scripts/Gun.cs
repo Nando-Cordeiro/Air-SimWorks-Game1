@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    public AK.Wwise.Event Play_Shoot;
     public Camera fpsCam;
     public score score;
 
@@ -13,13 +14,19 @@ public class Gun : MonoBehaviour
         if(Input.GetButtonDown("Fire1"))
         {
             Shoot();
-        }    
+            
+        }
     }
     
     void Shoot()
     {
+
         RaycastHit hit;
-        if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit))
+
+        Play_Shoot.Post(gameObject);
+        
+
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit))
         {
             Debug.Log(hit.transform.name);
             if (hit.transform.name == "Target(Clone)")
