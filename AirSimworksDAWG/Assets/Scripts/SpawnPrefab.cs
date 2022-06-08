@@ -9,6 +9,7 @@ public class SpawnPrefab : MonoBehaviour
     public GameObject prefab;
     public GameObject spawned;
 
+
     public float minWait;
     public float maxWait;
     // Start is called before the first frame update
