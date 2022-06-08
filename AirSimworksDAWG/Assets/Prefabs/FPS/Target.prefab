@@ -110,6 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bba07d1ef9578f3429b529ef4741e6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Target:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 6d7e0fc0bd6bf46a4951dcd4d3c487ef, type: 2}
   spawner: {fileID: 0}
   speed: 3
 --- !u!1 &889037644682878115

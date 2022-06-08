@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19169d79d1d4341ca8fd5c109cc4d104, type: 3}
+  m_Name: 99A9C7B2-3AF0-480B-A98C-939A0E2C4CAF
+  m_EditorClassIdentifier: 
+  objectName: Play_Shoot
+  id: 2641650631
+  guid: 99A9C7B2-3AF0-480B-A98C-939A0E2C4CAF
