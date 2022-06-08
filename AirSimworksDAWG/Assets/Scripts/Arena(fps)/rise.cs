@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class rise : MonoBehaviour
 {
+    public AK.Wwise.Event Target;
     public SpawnPrefab spawner;
     public float speed = 1f;
 
@@ -23,6 +24,7 @@ public class rise : MonoBehaviour
         spawner.resetSpawner();
         GameObject.Destroy(gameObject);
 
-        AkSoundEngine.PostEvent("Play_Target_Shoot", gameObject);
+        Target.Post(gameObject);
+
     }
 }

@@ -2807,6 +2807,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10d969f49c8a9424eacb702de19b19d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Play_Shoot:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 21b087bfe59d34974adce932386a8ca4, type: 2}
   fpsCam: {fileID: 5863622567557214999}
   score: {fileID: 270188768}
 --- !u!114 &5863622567557215001

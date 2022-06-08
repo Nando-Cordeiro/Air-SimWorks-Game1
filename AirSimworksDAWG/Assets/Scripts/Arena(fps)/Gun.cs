@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    public AK.Wwise.Event Play_Shoot;
     public Camera fpsCam;
     public score score;
 
@@ -22,9 +23,8 @@ public class Gun : MonoBehaviour
 
         RaycastHit hit;
 
-       
+        Play_Shoot.Post(gameObject);
         
-      
 
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit))
         {

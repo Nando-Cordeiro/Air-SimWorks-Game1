@@ -78,3 +78,41 @@ Empyere-Faerens-tale/Library/PackageCache/com.unity.2d.pixel-perfect@4.0.1/Sampl
 Empyere-Faerens-tale/Library/PackageCache/com.unity.2d.pixel-perfect@4.0.1/Samples~/Scenes and Extras/Scenes/Presets/Pixel Perfect Cameras/PixelPerfectCamera_16PPU_320x240_Pixel Snapped.preset.meta
 Empyere-Faerens-tale/Library/CurrentLayout-default.dwlt
 Empyere-Faerens-tale/Library/PackageCache/com.unity.2d.pixel-perfect@4.0.1/Samples~/Scenes and Extras/Scenes/Presets/Pixel Perfect Cameras/PixelPerfectCamera_16PPU_320x240_Pixel Snapped.preset.meta
+
+## ---------------- ##
+##   WWise stuff    ##
+## ---------------- ##
+
+# project stuff
+AirSimworksDAWG_WwiseProject/.cache/
+AirSimworksDAWG_WwiseProject/*.prof
+AirSimworksDAWG_WwiseProject/*_WwiseProject.*.validationcache
+AirSimworksDAWG_WwiseProject/*_WwiseProject.*.wsettings
+AirSimworksDAWG_WwiseProject/**/*.akd
+
+# build stuff (unsure?)
+# Assets/Wwise/Deployment/Plugins/Windows/**/*.meta
+
+# WWise Picker (editor)
+# from https://www.audiokinetic.com/library/edge/?source=Unity&id=unity__troubleshooting.html
+# >> Do not keep AkWwiseProjectData.asset under version control! 
+# >> This is a temporary cache file for the Wwise project data, 
+# >> so as to avoid having the Wwise Picker continuously parse the Work Unit files.
+Assets/Wwise/Editor/ProjectData/AkWwiseProjectData.asset*
+
+# notes:
+# 1) if any other files go in Assets/Wwise/Editor/ProjectData/ besides AkWwiseProjectData.asset*,
+#    then don't ignore Assets/Wwise/Editor/ProjectData.meta. If AkWwiseProjectData.asset is the only item in there,
+#    then, it's OK to ignore this file.
+# 
+# Assets/Wwise/Editor/ProjectData.meta
+
+## --------------- ##
+## End WWise Stuff ##
+## --------------- ##
+
+# temp install files
+WwiseUnityIntegration_*_Src.zip
+
+# Mac stuff
+.DS_store
