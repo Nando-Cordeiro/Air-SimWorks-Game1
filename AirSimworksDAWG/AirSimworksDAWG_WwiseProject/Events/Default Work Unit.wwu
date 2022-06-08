@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{EAAE348C-0748-4D58-B629-A2896724362A}" SchemaVersion="103">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{EAAE348C-0748-4D58-B629-A2896724362A}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Play_Shoot" ID="{99A9C7B2-3AF0-480B-A98C-939A0E2C4CAF}">
+					<ChildrenList>
+						<Action Name="" ID="{2A80475C-D93A-469A-90ED-FED43144F36C}" ShortID="83484187">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Shoot" ID="{DDB04F75-5990-4AD6-AA4B-3B88F11A5861}" WorkUnitID="{37088032-6337-4F2F-83D6-74ABF0EB518E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Target_Hit" ID="{5170F21F-5490-413C-9EFC-F886975D925E}">
+					<ChildrenList>
+						<Action Name="" ID="{F47F9268-51C8-4AB3-9506-E939DAB6BD29}" ShortID="664396587">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Target Hit" ID="{10E5A94A-210D-4B95-83AE-895B3329017D}" WorkUnitID="{37088032-6337-4F2F-83D6-74ABF0EB518E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

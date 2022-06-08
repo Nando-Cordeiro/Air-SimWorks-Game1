@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{5005A22A-7271-4E72-A860-8F50997ADB47}" SchemaVersion="103">
+	<SoundBanks>
+		<WorkUnit Name="Default Work Unit" ID="{5005A22A-7271-4E72-A860-8F50997ADB47}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundBank Name="Arena" ID="{676C84E6-83E8-42CC-BABC-B8D35A455962}">
+					<ObjectInclusionList>
+						<ObjectRef Name="Play_Target_Hit" ID="{5170F21F-5490-413C-9EFC-F886975D925E}" WorkUnitID="{EAAE348C-0748-4D58-B629-A2896724362A}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_Shoot" ID="{99A9C7B2-3AF0-480B-A98C-939A0E2C4CAF}" WorkUnitID="{EAAE348C-0748-4D58-B629-A2896724362A}" Origin="Manual" Filter="7"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
+			</ChildrenList>
+		</WorkUnit>
+	</SoundBanks>
+</WwiseDocument>

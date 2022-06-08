@@ -13,13 +13,20 @@ public class Gun : MonoBehaviour
         if(Input.GetButtonDown("Fire1"))
         {
             Shoot();
-        }    
+            
+        }
     }
     
     void Shoot()
     {
+
         RaycastHit hit;
-        if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit))
+
+       
+        
+      
+
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit))
         {
             Debug.Log(hit.transform.name);
             if (hit.transform.name == "Target(Clone)")

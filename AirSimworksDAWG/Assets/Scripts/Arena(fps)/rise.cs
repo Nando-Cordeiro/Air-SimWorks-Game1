@@ -22,5 +22,7 @@ public class rise : MonoBehaviour
     {
         spawner.resetSpawner();
         GameObject.Destroy(gameObject);
+
+        AkSoundEngine.PostEvent("Play_Target_Shoot", gameObject);
     }
 }
