@@ -5,6 +5,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     public Camera fpsCam;
+    public score score;
 
     // Update is called once per frame
     void Update()
@@ -21,6 +22,11 @@ public class Gun : MonoBehaviour
         if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit))
         {
             Debug.Log(hit.transform.name);
+            if (hit.transform.name == "Target(Clone)")
+            {
+                hit.transform.gameObject.GetComponent<rise>().destroySelf();
+                score.addPoint();
+            }
         }
     }
 }
