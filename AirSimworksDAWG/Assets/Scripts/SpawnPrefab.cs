@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum spawnableType
+{
+    Target,
+    Recruit
+}
 public class SpawnPrefab : MonoBehaviour
 {
     public bool readyToSpawn = true;
     System.Random rng = new System.Random();
     public GameObject prefab;
     public GameObject spawned;
+    public spawnableType spawnType;
 
 
     public float minWait;
@@ -21,13 +27,16 @@ public class SpawnPrefab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(readyToSpawn && rng.Next(0, 101) <= 10)
+        if(readyToSpawn && rng.Next(0, 101) <= 10 && spawnType == spawnableType.Target)
         {
             readyToSpawn = !readyToSpawn;
-            Invoke("spawnPrefab", Random.Range(minWait, maxWait));
-            
-            
+            Invoke("spawnPrefab", Random.Range(minWait, maxWait)); 
         }
+        if(readyToSpawn && rng.Next(0, 101) <= 10 && spawnType == spawnableType.Recruit)
+        {
+            readyToSpawn = !readyToSpawn;
+            Invoke("spawnRecruitPrefab", Random.Range(minWait, maxWait));
+        }    
     }
     public void resetSpawner()
     {
@@ -39,5 +48,11 @@ public class SpawnPrefab : MonoBehaviour
         spawned = GameObject.Instantiate(prefab);
         spawned.transform.position = transform.position;
         spawned.GetComponent<rise>().spawner = this.gameObject.GetComponent<SpawnPrefab>();
+    }
+    public void spawnRecruitPrefab()
+    {
+        spawned = GameObject.Instantiate(prefab);
+        spawned.transform.position = transform.position;
+        spawned.GetComponent<recruitController>().spawner = this.gameObject.GetComponent<SpawnPrefab>();
     }
 }
