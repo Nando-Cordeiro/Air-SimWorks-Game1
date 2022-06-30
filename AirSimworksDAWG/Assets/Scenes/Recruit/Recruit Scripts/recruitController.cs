@@ -8,6 +8,7 @@ public class recruitController : MonoBehaviour
     public List<Material> materials;
     System.Random rand = new System.Random();
     public List<Traits> traits = new List<Traits>();
+    public SpawnPrefab spawner;
 
     public enum Traits
     {
