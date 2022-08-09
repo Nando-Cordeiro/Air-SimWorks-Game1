@@ -4,35 +4,56 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public AK.Wwise.Event Play_Shoot;
+    [Header("References")]
     public Camera fpsCam;
-    public score score;
+    public Transform firepoint;
+    public GameObject bullet;
+    FPSGameManager manager;
+
+    [Header("Stats")]
+    public float shootSpeed = 1f;
+    public float timeBetweenShots = 1f;
+    float timeShots;
+
+    private void Start()
+    {
+        manager = FindObjectOfType<FPSGameManager>();
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Fire1"))
+        timeShots -= Time.time;
+
+        if(Input.GetButtonDown("Fire1") && timeShots <= 0f)
         {
             Shoot();
-            
-        }
+        }    
     }
     
     void Shoot()
     {
+        timeShots = timeBetweenShots;
+
+        // this one uses a projectile
+
+        //GameObject _b = Instantiate(bullet, firepoint.position, firepoint.rotation);
+        //_b.GetComponent<Rigidbody>().AddForce(shootSpeed * fpsCam.transform.forward);
+
+        // saving this if you want it
 
         RaycastHit hit;
-
-        Play_Shoot.Post(gameObject);
-        
-
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit))
         {
-            Debug.Log(hit.transform.name);
-            if (hit.transform.name == "Target(Clone)")
+            //Debug.Log(hit.transform.name);
+
+            if (hit.collider.tag == "Target")
             {
-                hit.transform.gameObject.GetComponent<rise>().destroySelf();
-                score.addPoint();
+                manager.points += hit.collider.GetComponent<Target>().pointValue;
+
+
+                Destroy(hit.collider.gameObject);
+                Debug.Log("Destroyed a Target");
             }
         }
     }
