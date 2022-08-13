@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,9 @@ public class CameraController : MonoBehaviour
     public float mouseSensitivity = 1000f;
     public Transform playerbody;
     float xRot = 0f;
+
+    public PhotonView view;
+
     // Start is called before the first frame update
     void Start()
     {
