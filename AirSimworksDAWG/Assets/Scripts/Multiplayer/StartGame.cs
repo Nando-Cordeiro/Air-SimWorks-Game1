@@ -21,6 +21,8 @@ public class StartGame : MonoBehaviour
 
     public GameObject startCam;
 
+    public List<GameObject> players;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +36,7 @@ public class StartGame : MonoBehaviour
 
         GetPlayer();
 
-        StartCoroutine(StartTheRace());
+        StartCoroutine(StartTheGame());
     }
 
     private void Update()
@@ -48,12 +50,23 @@ public class StartGame : MonoBehaviour
         }*/
 
         //playersFinished = rm.playersFinished; // test case 1
+
+        if (GameObject.FindGameObjectsWithTag("Player").Length > PR.playersInRoom) // keep the room clear
+        {
+            foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                if (p != null)
+                {
+                    PhotonView view = p.GetComponent<PhotonView>();
+                    if (view.IsMine && view.ViewID > g.GetComponent<PhotonView>().ViewID) Destroy(p);
+                }
+            }
+        }
     }
 
-    public IEnumerator StartTheRace()
+    public IEnumerator StartTheGame()
     {
         GetPlayer();
-        //StartCoroutine(GetPlayersInGame());
 
         //while (FindObjectsOfType<CameraController>().Length < PR.playersInRoom) yield return null;
 
@@ -61,32 +74,23 @@ public class StartGame : MonoBehaviour
 
         if (g == null && PR.playersInRoom > FindObjectsOfType<CameraController>().Length)
         {
-            PR.RPC_CreatePlayer();
-
-            GetPlayer();
-            //StartCoroutine(GetPlayersInGame());
+            if (!GameObject.FindGameObjectWithTag("Player").GetComponent<PhotonView>().IsMine) PR.RPC_CreatePlayer();
         }
-        else GetPlayer();
+
+        GetPlayer();
 
         // move player to coresponding spawn point
-        g.transform.position = spawns[PR.myNumberInRoom].position;
-        g.transform.rotation = spawns[PR.myNumberInRoom].rotation;
+        if (g.GetComponent<PhotonView>().IsMine)
+        {
+            g.transform.position = spawns[PR.myNumberInRoom].position;
+            g.transform.rotation = spawns[PR.myNumberInRoom].rotation;
+        }
 
         // disable the start view cam
         startCam.SetActive(false);
 
-        /*
-        //if (g.GetComponent<PlayerController>().view.IsMine)
-        g.GetComponent<PlayerController>().cam.SetActive(true);
-
-        yield return new WaitForSeconds(raceCountDown);
-
-        //if (g.GetComponent<PlayerController>().view.IsMine) 
-        g.GetComponent<PlayerController>().canMove = true;
-
-        foreach (PlayerController p in FindObjectsOfType<PlayerController>()) p.canMove = true;
-
-        rm.ActivateRacers();*/
+        // let players start
+        EnableMe();
     }
 
     void GetPlayer()
@@ -98,20 +102,22 @@ public class StartGame : MonoBehaviour
                 if (p.GetComponent<PhotonView>().IsMine) g = p.gameObject;
             }
 
-            //rm.players.Add(g);
+            players.Add(g);
         }
     }
 
-    IEnumerator GetPlayersInGame()
+    void EnableMe()
     {
-        yield return new WaitForSeconds(5f);
-        /*
-        foreach (PlayerController p in FindObjectsOfType<PlayerController>())
+        foreach (CameraController p in FindObjectsOfType<CameraController>())
         {
-            if (!p.view.IsMine) FindObjectOfType<PhotonRoom>().players.Add(p.gameObject);
+            if (p.view.IsMine)
+            {
+                p.GetComponent<CameraController>().enabled = true;
+                p.GetComponent<Camera>().enabled = true;
+                p.GetComponent<Gun>().enabled = true;
+                p.GetComponent<AudioListener>().enabled = true;
+            }
         }
-
-        rm.players = FindObjectOfType<PhotonRoom>().players;*/
     }
 
     public void DissconnectPlayer()
@@ -121,20 +127,6 @@ public class StartGame : MonoBehaviour
 
     public IEnumerator DissconectAndLoad()
     {
-        //if (g.GetComponent<PlayerController>().lap < 4)
-        //{
-        //    GameObject _g = PhotonNetwork.InstantiateRoomObject(Path.Combine("PhotonPrefabs", "AI Racer"), transform.position, transform.rotation, 0);
-        //    AIRacer newAi = _g.GetComponent<AIRacer>();
-        //    newAi.lap = g.GetComponent<PlayerController>().lap;
-        //    newAi.totalCheckpointsPassed = g.GetComponent<PlayerController>().totalCheckpointsPassed;
-        //    newAi.checkpointsPassed = g.GetComponent<PlayerController>().checkpointsPassed;
-
-        //    foreach (PlayerController p in FindObjectsOfType<PlayerController>())
-        //    {
-        //        p.rm.racers.Add(_g);
-        //    }
-        //}
-
         PhotonNetwork.Disconnect();
         PR.playersInGame--;
 

@@ -52,7 +52,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         homeUI.SetActive(false);
         if (searchUI != null) searchUI.SetActive(true);
         FindObjectOfType<MultiplayerSetting>().delayStart = false;
-        CreateSoloRoom();
+        PhotonNetwork.JoinRandomRoom();
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
