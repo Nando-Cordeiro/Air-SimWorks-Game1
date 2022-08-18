@@ -6,6 +6,11 @@ public class playerController : MonoBehaviour
 {
     public CharacterController characterController;
     public float speed = 12f;
+
+    public float gravity = 9.8f;
+    
+    //bool grounded = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +26,6 @@ public class playerController : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * y;
 
         characterController.Move(move * speed * Time.deltaTime);
+        characterController.Move(-Vector3.up * gravity * Time.deltaTime); // keep player grounded
     }
 }

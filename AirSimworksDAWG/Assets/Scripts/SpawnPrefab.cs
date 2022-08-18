@@ -53,6 +53,6 @@ public class SpawnPrefab : MonoBehaviour
     {
         spawned = GameObject.Instantiate(prefab);
         spawned.transform.position = transform.position;
-        spawned.GetComponent<recruitController>().spawner = this.gameObject.GetComponent<SpawnPrefab>();
+        //spawned.GetComponent<recruitController>().spawner = this.gameObject.GetComponent<SpawnPrefab>();
     }
 }
