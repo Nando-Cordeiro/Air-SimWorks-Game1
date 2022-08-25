@@ -47,11 +47,12 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRandomRoom();
     }
     
-    public void SoloGame()
+    public void SoloGame(int mpScene)
     {
         homeUI.SetActive(false);
         if (searchUI != null) searchUI.SetActive(true);
         FindObjectOfType<MultiplayerSetting>().delayStart = false;
+        FindObjectOfType<MultiplayerSetting>().multiplayerScene = mpScene;
         PhotonNetwork.JoinRandomRoom();
     }
 

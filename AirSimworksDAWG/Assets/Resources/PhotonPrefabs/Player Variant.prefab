@@ -1817,6 +1817,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aiFollowers: []
   points: 0
+  cam: {fileID: 0}
+  interactRange: 8
 --- !u!114 &997896131
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,6 +9,17 @@ public class StartGame : MonoBehaviour
 {
     //public RaceManager rm;
 
+    public enum GameType
+    {
+        Arena,
+        Recruit,
+        Maze,
+        Cars,
+        TowerDefense,
+    }
+
+    public GameType gameType = GameType.Arena;
+
     public Transform[] spawns;
 
     public PhotonRoom PR;

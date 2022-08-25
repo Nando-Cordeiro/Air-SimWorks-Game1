@@ -242,8 +242,16 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     [PunRPC]
     public void RPC_CreatePlayer()
     {
+        string playerType = SceneManager.GetActiveScene().name;
+
         Debug.Log("Creating player");
-        GameObject g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), transform.position, Quaternion.identity, 0);
+        GameObject g = null;
+        
+        if      (playerType == "Arena")         g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), transform.position, Quaternion.identity, 0);
+        else if (playerType == "Recruit")       g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player Variant"), transform.position, Quaternion.identity, 0);
+        else if (playerType == "Maze")          g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), transform.position, Quaternion.identity, 0);
+        else if (playerType == "Cars")          g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), transform.position, Quaternion.identity, 0);
+        else if (playerType == "TowerDefense")  g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), transform.position, Quaternion.identity, 0);
         //if (players.Count <= playersInRoom) 
         players.Add(g);
         Debug.Log("Added new player");
