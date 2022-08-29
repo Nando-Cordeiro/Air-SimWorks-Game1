@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using System.IO;
 
 public enum spawnableType
 {
     Target,
     Recruit
 }
+
 public class SpawnPrefab : MonoBehaviour
 {
     public bool readyToSpawn = true;
@@ -18,11 +21,6 @@ public class SpawnPrefab : MonoBehaviour
 
     public float minWait;
     public float maxWait;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -51,8 +49,10 @@ public class SpawnPrefab : MonoBehaviour
     }
     public void spawnRecruitPrefab()
     {
-        spawned = GameObject.Instantiate(prefab);
-        spawned.transform.position = transform.position;
+        //spawned = GameObject.Instantiate(prefab);
+        //spawned.transform.position = transform.position;
         //spawned.GetComponent<recruitController>().spawner = this.gameObject.GetComponent<SpawnPrefab>();
+
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "AI Guy"), transform.position, Quaternion.identity, 0);
     }
 }

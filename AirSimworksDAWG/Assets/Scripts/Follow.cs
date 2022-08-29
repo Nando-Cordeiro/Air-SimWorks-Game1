@@ -6,17 +6,18 @@ public class Follow : MonoBehaviour
 {
     public enum Proficiancy
     {
-        P1,
-        P2,
-        P3,
-        P4,
-        P5,
-        P6,
+        FlightOpperations,
+        Mechanic,
+        MedicalResearch,
+        InvestigationOfficer,
+        DataAnylist,
+        Administration,
+        CyperOperations,
+        TechMaintenence,
     }
 
     [Header("AI Info")]
-    //public Proficiancy proficiancy = Proficiancy.P1;
-    public List<Proficiancy> proficiancies = new List<Proficiancy>();
+    public Proficiancy proficiancy;
 
     [Header("References")]
     public Transform target;
@@ -28,7 +29,7 @@ public class Follow : MonoBehaviour
 
     [Space(10)]
 
-    public MeshRenderer[] renderers;
+    public MeshRenderer icon;
     public Material[] materials;
 
     Rigidbody rb;
@@ -38,12 +39,12 @@ public class Follow : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        for (int i = 0; i < 3; i++)
-        {
-            int j = Random.Range(0, 6);
-            proficiancies.Add((Proficiancy)j);
-            renderers[i].material = materials[j];
-        }
+        var values = System.Enum.GetValues(typeof(Proficiancy));
+        int random = Random.Range(0, values.Length);
+
+        proficiancy = (Proficiancy)values.GetValue(random);
+
+        icon.material = materials[random];
     }
 
     // Update is called once per frame

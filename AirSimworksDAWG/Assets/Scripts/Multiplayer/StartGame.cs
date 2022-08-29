@@ -93,8 +93,28 @@ public class StartGame : MonoBehaviour
         // move player to coresponding spawn point
         if (g.GetComponent<PhotonView>().IsMine)
         {
-            g.transform.position = spawns[PR.myNumberInRoom].position;
-            g.transform.rotation = spawns[PR.myNumberInRoom].rotation;
+            CharacterController c = g.GetComponent<CharacterController>();
+
+            if (c != null)
+            {
+                c.enabled = false;
+
+                g.transform.position = spawns[PR.myNumberInRoom].position;
+                g.transform.rotation = spawns[PR.myNumberInRoom].rotation;
+
+
+                c.enabled = true;
+                g.GetComponent<playerController>().enabled = true;
+                g.GetComponentInChildren<CameraController>().enabled = true;
+                g.GetComponentInChildren<Camera>().enabled = true;
+
+                g.transform.GetChild(2).gameObject.SetActive(true);
+            }
+            else
+            {
+                g.transform.position = spawns[PR.myNumberInRoom].position;
+                g.transform.rotation = spawns[PR.myNumberInRoom].rotation;
+            }
         }
 
         // disable the start view cam
