@@ -12,6 +12,7 @@ public class MazeSpawner : MonoBehaviour
 
     public Transform SpawnPosition;
 
+    GameObject prevSpawnedSection = null;
     GameObject spawnedMazeSection;
     GameObject spawnedTrap;
     RaycastHit hitWall;
@@ -79,42 +80,60 @@ public class MazeSpawner : MonoBehaviour
         spawnedTrap.name = "TD[" + spawnPosition.x + "," + spawnPosition.z + "]";
     }
 
+    public void MarkForDelete()
+    {
+        spawnedMazeSection.GetComponentInChildren<MarkForDelete>().SetForDelete();
+    }
+
     public void SpawnSigns()
     {
         int layer_mask = LayerMask.GetMask("MazeWall");
 
         if (Physics.Raycast(spawnedTrap.transform.position + Vector3.up * 1.5f, spawnedTrap.transform.forward, out hitWall, 1.5f, layer_mask))
         {
-            spawnedSigns.Add(Instantiate(trapSign, hitWall.point, Quaternion.LookRotation(-hitWall.normal), this.transform));
-            Debug.Log(hitWall.transform.gameObject.name);
+            if (!hitWall.transform.GetComponent<MarkForDelete>().GetStatus())
+            {
+                spawnedSigns.Add(Instantiate(trapSign, hitWall.point, Quaternion.LookRotation(-hitWall.normal), this.transform));
+                Debug.Log(hitWall.transform.gameObject.name);
+            }
         }
 
         if (Physics.Raycast(spawnedTrap.transform.position + Vector3.up * 1.5f, spawnedTrap.transform.right, out hitWall, 1.5f, layer_mask))
         {
-            spawnedSigns.Add(Instantiate(trapSign, hitWall.point, Quaternion.LookRotation(-hitWall.normal), this.transform));
-            Debug.Log(hitWall.transform.gameObject.name);
+            if (!hitWall.transform.GetComponent<MarkForDelete>().GetStatus())
+            {
+                spawnedSigns.Add(Instantiate(trapSign, hitWall.point, Quaternion.LookRotation(-hitWall.normal), this.transform));
+                Debug.Log(hitWall.transform.gameObject.name);
+            }
         }
 
         if (Physics.Raycast(spawnedTrap.transform.position + Vector3.up * 1.5f, -spawnedTrap.transform.forward, out hitWall, 1.5f, layer_mask))
         {
-            spawnedSigns.Add(Instantiate(trapSign, hitWall.point, Quaternion.LookRotation(-hitWall.normal), this.transform));
-            Debug.Log(hitWall.transform.gameObject.name);
+            if (!hitWall.transform.GetComponent<MarkForDelete>().GetStatus())
+            {
+                spawnedSigns.Add(Instantiate(trapSign, hitWall.point, Quaternion.LookRotation(-hitWall.normal), this.transform));
+                Debug.Log(hitWall.transform.gameObject.name);
+            }
         }
 
         if (Physics.Raycast(spawnedTrap.transform.position + Vector3.up * 1.5f, -spawnedTrap.transform.right, out hitWall, 1.5f, layer_mask))
         {
-            spawnedSigns.Add(Instantiate(trapSign, hitWall.point, Quaternion.LookRotation(-hitWall.normal), this.transform));
-            Debug.Log(hitWall.transform.gameObject.name);
+            if (!hitWall.transform.GetComponent<MarkForDelete>().GetStatus())
+            {
+                spawnedSigns.Add(Instantiate(trapSign, hitWall.point, Quaternion.LookRotation(-hitWall.normal), this.transform));
+                Debug.Log(hitWall.transform.gameObject.name);
+            }
         }
     }
 
     private void Update()
     {
-
+        /*
         Debug.DrawRay(spawnedTrap.transform.position + Vector3.up * 1.5f, spawnedTrap.transform.forward * 1.5f);
         Debug.DrawRay(spawnedTrap.transform.position + Vector3.up * 1.5f, spawnedTrap.transform.forward * -1.5f);
         Debug.DrawRay(spawnedTrap.transform.position + Vector3.up * 1.5f, spawnedTrap.transform.right * 1.5f);
         Debug.DrawRay(spawnedTrap.transform.position + Vector3.up * 1.5f, spawnedTrap.transform.right * -1.5f);
+        */
     }
 
     public GameObject GetSpawnedMazeSection()

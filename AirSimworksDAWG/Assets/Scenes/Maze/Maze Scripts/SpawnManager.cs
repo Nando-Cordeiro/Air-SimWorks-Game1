@@ -33,11 +33,23 @@ public class SpawnManager : MonoBehaviour
     {
         foreach(MazeSpawner mazeSpawner in spawnableZone)
         {
-            mazeSpawner.DestroySigns();
-            mazeSpawner.DestroyTrap();
+            mazeSpawner.MarkForDelete();
             mazeSpawner.DestroyMazeSection();
             mazeSpawner.SpawnMazeSection();
+            mazeSpawner.DestroySigns();
+            mazeSpawner.DestroyTrap();
             mazeSpawner.RandomizeTrap();
+            mazeSpawner.SpawnSigns();
+        }
+
+        StartCoroutine(WaitForSpawn());
+    }
+
+    IEnumerator WaitForSpawn()
+    {
+        yield return new WaitForSecondsRealtime(1.0f);
+        foreach (MazeSpawner mazeSpawner in spawnableZone)
+        {
             mazeSpawner.SpawnSigns();
         }
     }
