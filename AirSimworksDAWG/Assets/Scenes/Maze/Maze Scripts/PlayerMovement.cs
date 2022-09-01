@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         playerRB.AddForce(moveDir * moveSpeed, ForceMode.Acceleration);
     }
 
-    private void SpawnPlayer()
+    public void SpawnPlayer()
     {
         this.transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
     }

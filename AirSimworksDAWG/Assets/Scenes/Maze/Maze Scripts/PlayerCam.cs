@@ -42,6 +42,11 @@ public class PlayerCam : MonoBehaviour
         }
     }
 
+    public void SwitchPlayersLocal()
+    {
+        playerCam.enabled = !playerCam.enabled;
+    }
+
     public void EnableDirectionCancel(bool state)
     {
         cancelDirection.SetActive(state);

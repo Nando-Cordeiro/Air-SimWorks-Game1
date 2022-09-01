@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Target
   - Recruit
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -14,8 +15,8 @@ TagManager:
   - Water
   - UI
   - PlayerCull
-  - 
-  - 
+  - SpectatorCull
+  - MazeWall
   - 
   - 
   - 

@@ -6,12 +6,17 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] MazeSpawner[] mazeSpawners;
     [SerializeField] List<MazeSpawner> spawnableZone;
+    [SerializeField] bool debugShowPosition;
     // Start is called before the first frame update
     void Start()
     {
         foreach(MazeSpawner mazeSpawner in mazeSpawners)
         {
+            mazeSpawner.ToggleDebug(debugShowPosition);
             mazeSpawner.SpawnMazeSection();
+            mazeSpawner.GeneratePoints();
+            mazeSpawner.RandomizeTrap();
+            mazeSpawner.SpawnSigns();
             spawnableZone.Add(mazeSpawner);
         }
     }
@@ -24,12 +29,16 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    void RandomizeMazeSection()
+    public void RandomizeMazeSection()
     {
         foreach(MazeSpawner mazeSpawner in spawnableZone)
         {
+            mazeSpawner.DestroySigns();
+            mazeSpawner.DestroyTrap();
             mazeSpawner.DestroyMazeSection();
             mazeSpawner.SpawnMazeSection();
+            mazeSpawner.RandomizeTrap();
+            mazeSpawner.SpawnSigns();
         }
     }
 
