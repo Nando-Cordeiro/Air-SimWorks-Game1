@@ -9,9 +9,11 @@ public class FPSGameManager : MonoBehaviour
     [Header("Stats")]
     public int points;
     public int pointsToNextWeapon = 100;
+    int nextGun1, nextGun2;
 
     [Header("References")]
     public Transform[] spawns;
+    public Gun player;
 
     [Header("UI")]
     public Slider nextWeaponSlider;
@@ -26,27 +28,37 @@ public class FPSGameManager : MonoBehaviour
 
         nextWeaponSlider.maxValue = pointsToNextWeapon;
         nextWeaponSlider.value = points;
+
+        player = FindObjectOfType<Gun>(); // todo: check player for local
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (player == null)
+        {
+            // todo: check player for local
+            player = FindObjectOfType<Gun>();
+        }
+
         if (points >= pointsToNextWeapon)
         {
 
             if (upgradesAvailable != null)
             {
                 upgradesAvailable.SetActive(true);
+
+                nextGun1 = Random.Range(0, player.models.Length);
+                nextGun2 = Random.Range(0, player.models.Length);
             }
 
             // chose new weapon
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 // choice 1
+                player.ChangeModel(nextGun1);
 
-
-
-                points = 0;
+                points = points - pointsToNextWeapon;
                 upgradesAvailable.SetActive(false);
             }
 
@@ -54,10 +66,9 @@ public class FPSGameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 // choice 2
+                player.ChangeModel(nextGun2);
 
-
-
-                points = 0;
+                points = points - pointsToNextWeapon;
                 upgradesAvailable.SetActive(false);
             }
         }

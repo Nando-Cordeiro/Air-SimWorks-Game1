@@ -9,11 +9,15 @@ public class Gun : MonoBehaviour
     public Transform firepoint;
     public GameObject bullet;
     FPSGameManager manager;
+    public GameObject[] models;
 
     [Header("Stats")]
     public float shootSpeed = 1f;
     public float timeBetweenShots = 1f;
     float timeShots;
+    public bool doSpread;
+    public int activeModel = 0;
+    public bool fullAuto;
 
     private void Start()
     {
@@ -29,8 +33,33 @@ public class Gun : MonoBehaviour
         {
             Shoot();
         }    
+
+        if (activeModel == 0) // pistol
+        {
+            fullAuto = false;
+            timeBetweenShots = 1f;
+        }
+        else if (activeModel == 1) // shotgun
+        {
+            fullAuto = false;
+            timeBetweenShots = 1.3f;
+        }
+        else if (activeModel == 2) // rifle
+        {
+            fullAuto = true;
+            timeBetweenShots = 0.1f;
+        }
     }
     
+    public void ChangeModel(int num)
+    {
+        foreach (GameObject g in models) g.SetActive(false);
+
+        models[num].SetActive(true);
+
+        activeModel = num;
+    }
+
     void Shoot()
     {
         timeShots = timeBetweenShots;
