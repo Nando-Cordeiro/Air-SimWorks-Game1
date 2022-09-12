@@ -10,6 +10,8 @@ public class FPSGameManager : MonoBehaviour
     public int points;
     public int pointsToNextWeapon = 100;
     int nextGun1, nextGun2;
+    public int totalPoints;
+    float m,s;
 
     [Header("References")]
     public Transform[] spawns;
@@ -18,6 +20,8 @@ public class FPSGameManager : MonoBehaviour
     [Header("UI")]
     public Slider nextWeaponSlider;
     public TextMeshProUGUI nextWeaponText;
+    public TextMeshProUGUI timeText;
+    public TextMeshProUGUI pointsText;
     public GameObject upgradesAvailable;
 
 
@@ -35,6 +39,13 @@ public class FPSGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        s += Time.deltaTime;
+
+        if (s >= 60f) {
+            m++;
+            s = 0;
+        }
+
         if (player == null)
         {
             // todo: check player for local
@@ -48,6 +59,8 @@ public class FPSGameManager : MonoBehaviour
             {
                 upgradesAvailable.SetActive(true);
 
+                player.shield.SetActive(false);
+
                 nextGun1 = Random.Range(0, player.models.Length);
                 nextGun2 = Random.Range(0, player.models.Length);
             }
@@ -60,6 +73,8 @@ public class FPSGameManager : MonoBehaviour
 
                 points = points - pointsToNextWeapon;
                 upgradesAvailable.SetActive(false);
+
+                player.shield.SetActive(true);
             }
 
             // chose new weapon
@@ -70,6 +85,18 @@ public class FPSGameManager : MonoBehaviour
 
                 points = points - pointsToNextWeapon;
                 upgradesAvailable.SetActive(false);
+
+                player.shield.SetActive(true);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Backspace))
+            {
+                // choice decline
+
+                points = points - pointsToNextWeapon;
+                upgradesAvailable.SetActive(false);
+
+                player.shield.SetActive(true);
             }
         }
     }
@@ -82,5 +109,7 @@ public class FPSGameManager : MonoBehaviour
         }
 
         if (nextWeaponText != null) nextWeaponText.text = "" + points;
+        if (pointsText != null) pointsText.text = "Total points: " + totalPoints;
+        if (timeText != null) timeText.text = "Time elapsed " + m + ":" + (int)s;
     }
 }

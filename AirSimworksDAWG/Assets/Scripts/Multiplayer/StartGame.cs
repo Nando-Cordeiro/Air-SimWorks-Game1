@@ -34,6 +34,8 @@ public class StartGame : MonoBehaviour
 
     public List<GameObject> players;
 
+    public float gameLength = (60 * 3);
+
     // Start is called before the first frame update
     void Start()
     {

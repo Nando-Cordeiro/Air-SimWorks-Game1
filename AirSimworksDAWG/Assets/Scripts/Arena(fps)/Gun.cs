@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class Gun : MonoBehaviour
     public GameObject bullet;
     FPSGameManager manager;
     public GameObject[] models;
+    public GameObject shield;
 
     [Header("Stats")]
     public float shootSpeed = 1f;
@@ -58,6 +60,9 @@ public class Gun : MonoBehaviour
         models[num].SetActive(true);
 
         activeModel = num;
+
+        // set stats
+
     }
 
     void Shoot()
@@ -78,12 +83,29 @@ public class Gun : MonoBehaviour
 
             if (hit.collider.tag == "Target")
             {
-                manager.points += hit.collider.GetComponent<Target>().pointValue;
+                int _p = hit.collider.GetComponent<Target>().pointValue;
+
+                manager.points += _p;
+                manager.totalPoints += _p;
 
 
                 Destroy(hit.collider.gameObject);
                 Debug.Log("Destroyed a Target");
             }
+            else if (hit.collider.tag == "Player")
+            {
+                if (hit.collider.GetComponent<PhotonView>())
+                {
+                    hit.collider.GetComponentInChildren<Gun>().Die();
+                }
+            }
         }
+    }
+
+    public void Die()
+    {
+        Debug.Log("darn im dead :(");
+
+        // do some stuff
     }
 }
