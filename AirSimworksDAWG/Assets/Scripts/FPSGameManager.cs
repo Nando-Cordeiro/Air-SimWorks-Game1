@@ -29,6 +29,7 @@ public class FPSGameManager : MonoBehaviour
     void Start()
     {
         points = 0;
+        m = 3;
 
         nextWeaponSlider.maxValue = pointsToNextWeapon;
         nextWeaponSlider.value = points;
@@ -39,11 +40,11 @@ public class FPSGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        s += Time.deltaTime;
+        s -= Time.deltaTime;
 
-        if (s >= 60f) {
-            m++;
-            s = 0;
+        if (s <= 0f) {
+            m--;
+            s = 60;
         }
 
         if (player == null)
@@ -110,6 +111,6 @@ public class FPSGameManager : MonoBehaviour
 
         if (nextWeaponText != null) nextWeaponText.text = "" + points;
         if (pointsText != null) pointsText.text = "Total points: " + totalPoints;
-        if (timeText != null) timeText.text = "Time elapsed " + m + ":" + (int)s;
+        if (timeText != null) timeText.text = "Time remaining " + m + ":" + (int)s;
     }
 }
