@@ -6,8 +6,6 @@ using System.Collections;
 
 public class ArcadeCar : MonoBehaviour
 {
-
-
     const int WHEEL_LEFT_INDEX = 0;
     const int WHEEL_RIGHT_INDEX = 1;
 
