@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
+using System.Linq;
 
 public class PhotonLobby : MonoBehaviourPunCallbacks
 {
@@ -12,12 +14,23 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     public GameObject searchUI;
     public GameObject loadingUI;
 
+    public GameObject hostUI;
+    public GameObject waitingUI;
+    public GameObject levelSelectUI;
+    public GameObject startUI;
+
+    public TMP_InputField roomName;
+
+    public int mpScene = 0;
+
     PhotonRoom pr;
+    //MultiplayerSetting ms;
 
     private void Awake()
     {
         lobby = this;
         pr = FindObjectOfType<PhotonRoom>();
+        //ms = FindObjectOfType<MultiplayerSetting>();
     }
 
     void Start()
@@ -43,17 +56,42 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     {
         homeUI.SetActive(false);
         searchUI.SetActive(true);
-        FindObjectOfType<MultiplayerSetting>().delayStart = true;
-        PhotonNetwork.JoinRandomRoom();
+        //ms.delayStart = true;
+        //PhotonNetwork.JoinRandomRoom();
+        PhotonNetwork.JoinRoom(roomName.text);
     }
     
-    public void SoloGame(int mpScene)
+    public void SoloGame()
     {
-        homeUI.SetActive(false);
-        if (searchUI != null) searchUI.SetActive(true);
-        FindObjectOfType<MultiplayerSetting>().delayStart = false;
-        FindObjectOfType<MultiplayerSetting>().multiplayerScene = mpScene;
-        PhotonNetwork.JoinRandomRoom();
+        if (roomName.text == "") return;
+
+        startUI.SetActive(false);
+
+        //ms.delayStart = false;
+        //ms.multiplayerScene = mpScene;
+
+        PhotonNetwork.JoinRoom(roomName.text);
+        //PhotonNetwork.JoinRandomRoom();
+
+        Debug.Log("Room name = " + roomName.text);
+    }
+
+    public void JoinGame()
+    {
+        if (roomName.text == "") return;
+
+        startUI.SetActive(false);
+
+        PhotonNetwork.JoinRoom(roomName.text);
+
+        Debug.Log("Room name = " + roomName.text);
+
+        if (!waitingUI.activeSelf)
+        {
+            Debug.Log("No room existed");
+
+            startUI.SetActive(true);
+        }
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
@@ -62,12 +100,21 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         CreateRoom();
     }
 
-    void CreateRoom()
+    public void CreateRoom()
     {
+        if (roomName.text == "") return;
+
+        startUI.SetActive(false);
+
+        FindObjectOfType<MultiplayerSetting>().delayStart = false;
+        FindObjectOfType<MultiplayerSetting>().multiplayerScene = mpScene;
+
         Debug.Log("Created new room");
-        int randomRoomName = Random.Range(0, 10000);
+        //int randomRoomName = Random.Range(0, 10000);
         RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 6 };
-        PhotonNetwork.CreateRoom("Room" + randomRoomName, roomOps);
+        PhotonNetwork.CreateRoom(roomName.text, roomOps);
+
+        hostUI.SetActive(true);
     }
 
     void CreateSoloRoom()
@@ -81,6 +128,11 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("Joined a room");
+
+        if (pr.myNumberInRoom != 1)
+        {
+            waitingUI.SetActive(true);
+        }
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -91,10 +143,32 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     public void CancelSearch()
     {
-        searchUI.SetActive(false);
-        homeUI.SetActive(true);
+        hostUI.SetActive(false);
+        waitingUI.SetActive(false);
+        startUI.SetActive(true);
         PhotonNetwork.LeaveRoom();
         pr.inaRoom = false;
+    }
+
+    public void SetMPScene(int _mpScene)
+    {
+        FindObjectOfType<MultiplayerSetting>().multiplayerScene = _mpScene;
+
+
+        //set top bar stuff / game name
+
+    }
+
+    public void ReturnButton()
+    {
+        levelSelectUI.SetActive(false);
+        hostUI.SetActive(true);
+    }
+
+    public void LevelSelectButton()
+    {
+        levelSelectUI.SetActive(true);
+        hostUI.SetActive(false);
     }
 
     public void QuitGame()

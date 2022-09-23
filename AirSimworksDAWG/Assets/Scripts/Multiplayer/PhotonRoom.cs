@@ -122,7 +122,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         {
             playerCountText.text = playersInRoom + " / 6";
             playerCountImage.fillAmount = 0f;
-            for (int i = 0; i < playersInRoom; i++) playerCountImage.fillAmount += (1f / 6f);
+            //for (int i = 0; i < playersInRoom; i++) playerCountImage.fillAmount += (1f / 6f);
         }
     }
 
@@ -156,7 +156,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         }
         else
         {
-            StartGame();
+            //StartGame();
         }
     }
 
@@ -182,7 +182,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         }
     }
 
-    void StartGame()
+    public void StartGame()
     {
         isGameLoaded = true;
 

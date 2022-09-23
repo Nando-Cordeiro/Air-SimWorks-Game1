@@ -3377,6 +3377,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2323827024932827454, guid: c6668fdcd5f6c7e42b76e8d6605eace4, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3822627522948441737, guid: c6668fdcd5f6c7e42b76e8d6605eace4, type: 3}
       propertyPath: m_Drag
       value: 0
