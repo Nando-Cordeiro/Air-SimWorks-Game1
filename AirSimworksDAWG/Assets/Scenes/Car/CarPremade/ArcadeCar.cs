@@ -704,6 +704,7 @@ public class ArcadeCar : MonoBehaviour
             handBrakeSlipperyTiresTime = 0.0f;
         }
 
+        rb.AddForce(Vector3.down * 20f, ForceMode.Acceleration);
     }
 
 
