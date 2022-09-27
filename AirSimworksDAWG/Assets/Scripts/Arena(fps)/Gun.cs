@@ -29,6 +29,8 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GetComponent<PhotonView>().IsMine) return; // if the object isnt mine do nothing
+
         timeShots -= Time.time;
 
         if(Input.GetButtonDown("Fire1") && timeShots <= 0f)
@@ -52,7 +54,8 @@ public class Gun : MonoBehaviour
             timeBetweenShots = 0.1f;
         }
     }
-    
+
+    [PunRPC]
     public void ChangeModel(int num)
     {
         foreach (GameObject g in models) g.SetActive(false);
@@ -65,6 +68,7 @@ public class Gun : MonoBehaviour
 
     }
 
+    [PunRPC]
     void Shoot()
     {
         timeShots = timeBetweenShots;

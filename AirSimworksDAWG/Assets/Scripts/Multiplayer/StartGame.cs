@@ -81,8 +81,6 @@ public class StartGame : MonoBehaviour
     {
         GetPlayer();
 
-        //while (FindObjectsOfType<CameraController>().Length < PR.playersInRoom) yield return null;
-
         yield return new WaitForSeconds(3f);
 
         if (g == null && PR.playersInRoom > FindObjectsOfType<CameraController>().Length)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Photon.Pun;
 
 public class FPSGameManager : MonoBehaviour
 {
@@ -25,6 +26,9 @@ public class FPSGameManager : MonoBehaviour
     public GameObject upgradesAvailable;
 
 
+    private bool ended;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +44,12 @@ public class FPSGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        s -= Time.deltaTime;
+        if (m > -1) s -= Time.deltaTime;
+        else
+        {
+            // end the game if time goes below 0
+            if (!ended) EndGame();
+        }
 
         if (s <= 0f) {
             m--;
@@ -112,5 +121,17 @@ public class FPSGameManager : MonoBehaviour
         if (nextWeaponText != null) nextWeaponText.text = "" + points;
         if (pointsText != null) pointsText.text = "Total points: " + totalPoints;
         if (timeText != null) timeText.text = "Time remaining " + m + ":" + (int)s;
+    }
+
+    void EndGame()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+
+        ended = true;
+
+        PhotonNetwork.LoadLevel("AfterGameLobby");
     }
 }

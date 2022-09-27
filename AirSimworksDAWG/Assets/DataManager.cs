@@ -5,21 +5,28 @@ using UnityEngine.UIElements.Experimental;
 
 public class DataManager : MonoBehaviour
 {
-    public int strategicThinkingLvl;
+    [Header("Developing Self")]
+    public int accountabilityLvl;
+    public int communicationLvl;
     public int decisionMakingLvl;
     public int flexibilityLvl;
-    public int communicationLvl;
+    public int selfControlLvl;
+
+    [Header("Developing Others")]
     public int fostersInclusionLvl;
     public int teamworkLvl;
-    public int selfControlLvl;
-    public int accountabilityLvl;
-    public int resourceManagementLvl;
+
+    [Header("Developing Ideas")]
     public int analyticalThinkingLvl;
 
-
+    [Header("Developing Organizations")]
+    public int resourceManagementLvl;
+    public int strategicThinkingLvl;
 
     private void Start()
     {
+        DontDestroyOnLoad(this);
+
         strategicThinkingLvl = PlayerPrefs.GetInt("StrThink");
         decisionMakingLvl = PlayerPrefs.GetInt("decMake");
         flexibilityLvl = PlayerPrefs.GetInt("flex");
@@ -31,4 +38,6 @@ public class DataManager : MonoBehaviour
         resourceManagementLvl = PlayerPrefs.GetInt("resource");
         analyticalThinkingLvl = PlayerPrefs.GetInt("analyticThink");
     }
+
+
 }
