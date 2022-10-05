@@ -131,6 +131,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
         if (pr.myNumberInRoom != 1)
         {
+            startUI.SetActive(false);
             waitingUI.SetActive(true);
         }
     }
@@ -156,7 +157,11 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
 
         //set top bar stuff / game name
-
+        if (_mpScene == 1) pr.view.RPC("RPC_ChangeGametype", RpcTarget.All, "Arena");
+        if (_mpScene == 2) pr.view.RPC("RPC_ChangeGametype", RpcTarget.All, "Recruit");
+        if (_mpScene == 3) pr.view.RPC("RPC_ChangeGametype", RpcTarget.All, "Maze");
+        if (_mpScene == 4) pr.view.RPC("RPC_ChangeGametype", RpcTarget.All, "Cars");
+        if (_mpScene == 5) pr.view.RPC("RPC_ChangeGametype", RpcTarget.All, "Tower Defense");
     }
 
     public void ReturnButton()

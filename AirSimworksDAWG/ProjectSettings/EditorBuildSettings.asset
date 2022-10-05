@@ -17,4 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Maze/Maze.unity
     guid: dde4ce063e2e1d14dbbd59d5cbe97126
+  - enabled: 1
+    path: Assets/Scenes/Car/Car.unity
+    guid: 88bff1e1afaa08f48a38647415076b28
+  - enabled: 1
+    path: Assets/Scenes/Tower Defense/Tower Defense.unity
+    guid: 70a7fd4a74b604948b387fb6e448d55a
+  - enabled: 1
+    path: Assets/Scenes/AfterGameLobby.unity
+    guid: a18b266746c4de1468a1bc80a53d1e0b
   m_configObjects: {}

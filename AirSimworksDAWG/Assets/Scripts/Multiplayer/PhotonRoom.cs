@@ -31,6 +31,10 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     public bool inaRoom;
 
+    [Header("UI")]
+    public TextMeshProUGUI gametypeHostText;
+    public TextMeshProUGUI gametypeWaitingText;
+
     [Header("References")]
     public TextMeshProUGUI playerCountText;
     public Image playerCountImage;
@@ -255,6 +259,13 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         //if (players.Count <= playersInRoom) 
         players.Add(g);
         Debug.Log("Added new player");
+    }
+
+    [PunRPC]
+    public void RPC_ChangeGametype(string gametype)
+    {
+        gametypeHostText.text = "Game Type: " + gametype;
+        gametypeWaitingText.text = "Game Type: " + gametype;
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

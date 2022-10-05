@@ -2259,6 +2259,8 @@ MonoBehaviour:
   playersInGame: 0
   startingTime: 0
   inaRoom: 0
+  gametypeHostText: {fileID: 59301552}
+  gametypeWaitingText: {fileID: 511271678}
   playerCountText: {fileID: 0}
   playerCountImage: {fileID: 0}
   playerObj: {fileID: 0}
@@ -2602,7 +2604,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0025024414, y: -0.00048828125}
+  m_AnchoredPosition: {x: -0.0024414062, y: -0.00048828125}
   m_SizeDelta: {x: -0.0050049, y: -0.00097656}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &780444398
@@ -4942,16 +4944,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ecd46efae4c6148a6c16b6f4d2ab0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strategicThinkingLvl: 0
+  accountabilityLvl: 0
+  communicationLvl: 0
   decisionMakingLvl: 0
   flexibilityLvl: 0
-  communicationLvl: 0
+  selfControlLvl: 0
   fostersInclusionLvl: 0
   teamworkLvl: 0
-  selfControlLvl: 0
-  accountabilityLvl: 0
-  resourceManagementLvl: 0
   analyticalThinkingLvl: 0
+  resourceManagementLvl: 0
+  strategicThinkingLvl: 0
 --- !u!4 &1704352572
 Transform:
   m_ObjectHideFlags: 0
@@ -6700,10 +6702,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1205093462}
-    - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetMPScene
-      objectReference: {fileID: 0}
     - target: {fileID: 4767142813863561527, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
