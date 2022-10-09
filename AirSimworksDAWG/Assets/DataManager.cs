@@ -39,5 +39,17 @@ public class DataManager : MonoBehaviour
         analyticalThinkingLvl = PlayerPrefs.GetInt("analyticThink");
     }
 
-
+    public void UpdateData()
+    {
+        PlayerPrefs.SetInt("StrThink", strategicThinkingLvl);
+        PlayerPrefs.SetInt("decMake", decisionMakingLvl);
+        PlayerPrefs.SetInt("flex", flexibilityLvl);
+        PlayerPrefs.SetInt("commun", communicationLvl);
+        PlayerPrefs.SetInt("fostInclu", fostersInclusionLvl);
+        PlayerPrefs.SetInt("teamwork", teamworkLvl);
+        PlayerPrefs.SetInt("selfControl", selfControlLvl);
+        PlayerPrefs.SetInt("acount", accountabilityLvl);
+        PlayerPrefs.SetInt("resource", resourceManagementLvl);
+        PlayerPrefs.SetInt("analyticThink", analyticalThinkingLvl);
+    }
 }

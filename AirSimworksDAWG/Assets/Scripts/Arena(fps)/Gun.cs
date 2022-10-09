@@ -12,6 +12,7 @@ public class Gun : MonoBehaviour
     FPSGameManager manager;
     public GameObject[] models;
     public GameObject shield;
+    public PhotonView view;
 
     [Header("Stats")]
     public float shootSpeed = 1f;
@@ -21,9 +22,12 @@ public class Gun : MonoBehaviour
     public int activeModel = 0;
     public bool fullAuto;
 
+    public int totalPoints;
+
     private void Start()
     {
         manager = FindObjectOfType<FPSGameManager>();
+        view = GetComponentInParent<PhotonView>();
     }
 
     // Update is called once per frame
@@ -35,7 +39,8 @@ public class Gun : MonoBehaviour
 
         if(Input.GetButtonDown("Fire1") && timeShots <= 0f)
         {
-            Shoot();
+            view.RPC("Shoot", RpcTarget.All);
+            //Shoot();
         }    
 
         if (activeModel == 0) // pistol
@@ -65,6 +70,7 @@ public class Gun : MonoBehaviour
         activeModel = num;
 
         // set stats
+
 
     }
 
@@ -104,6 +110,10 @@ public class Gun : MonoBehaviour
                 }
             }
         }
+
+
+        // set points locally for others to reference
+        totalPoints = manager.totalPoints;
     }
 
     public void Die()

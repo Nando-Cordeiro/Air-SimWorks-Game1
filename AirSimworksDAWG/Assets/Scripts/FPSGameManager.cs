@@ -79,7 +79,8 @@ public class FPSGameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 // choice 1
-                player.ChangeModel(nextGun1);
+                //player.ChangeModel(nextGun1);
+                player.view.RPC("ChangeModel", RpcTarget.All, nextGun1);
 
                 points = points - pointsToNextWeapon;
                 upgradesAvailable.SetActive(false);
@@ -91,7 +92,8 @@ public class FPSGameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 // choice 2
-                player.ChangeModel(nextGun2);
+                //player.ChangeModel(nextGun2);
+                player.view.RPC("ChangeModel", RpcTarget.All, nextGun2);
 
                 points = points - pointsToNextWeapon;
                 upgradesAvailable.SetActive(false);
@@ -125,6 +127,8 @@ public class FPSGameManager : MonoBehaviour
 
     void EndGame()
     {
+        FindObjectOfType<PointsGiver>().GiveOutPoints();
+
         if (!PhotonNetwork.IsMasterClient)
         {
             return;

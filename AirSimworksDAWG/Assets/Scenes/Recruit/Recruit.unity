@@ -3804,6 +3804,49 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6903945138646894975, guid: 06509ea8c5b77ae41adaf001accdc511, type: 3}
   m_PrefabInstance: {fileID: 311216693}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &317268556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 317268558}
+  - component: {fileID: 317268557}
+  m_Layer: 0
+  m_Name: Points Giver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &317268557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317268556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd2afe2b14ea4a41ae2fd380f09f473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &317268558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317268556}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 923.53394, y: 546.3042, z: -92.00727}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &345349925
 GameObject:
   m_ObjectHideFlags: 0
@@ -6505,6 +6548,7 @@ MonoBehaviour:
   playersFinished: 
   startCam: {fileID: 810131029}
   players: []
+  gameLength: 180
 --- !u!4 &563098133
 Transform:
   m_ObjectHideFlags: 0
