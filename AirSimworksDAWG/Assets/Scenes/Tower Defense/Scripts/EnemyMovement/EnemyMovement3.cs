@@ -11,7 +11,8 @@ public class EnemyMovement3 : MonoBehaviour
 
     void Start()
     {
-        target = Path3.points3[0];
+        this.transform.position = Path3.points3[0].position;
+        target = Path3.points3[1];
     }
     void Update()
     {
