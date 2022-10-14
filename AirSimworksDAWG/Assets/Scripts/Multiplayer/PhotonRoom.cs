@@ -268,6 +268,15 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         gametypeWaitingText.text = "Game Type: " + gametype;
     }
 
+    [PunRPC]
+    public void HostLeft()
+    {
+        PhotonNetwork.LeaveRoom();
+        Destroy(gameObject);
+        SceneManager.LoadScene(0);
+
+    }
+
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         base.OnPlayerLeftRoom(otherPlayer);

@@ -5,6 +5,8 @@ using UnityEngine.UIElements.Experimental;
 
 public class DataManager : MonoBehaviour
 {
+    static DataManager dm;
+
     [Header("Developing Self")]
     public int accountabilityLvl;
     public int communicationLvl;
@@ -25,8 +27,6 @@ public class DataManager : MonoBehaviour
 
     private void Start()
     {
-        DontDestroyOnLoad(this);
-
         strategicThinkingLvl = PlayerPrefs.GetInt("StrThink");
         decisionMakingLvl = PlayerPrefs.GetInt("decMake");
         flexibilityLvl = PlayerPrefs.GetInt("flex");
@@ -37,6 +37,23 @@ public class DataManager : MonoBehaviour
         accountabilityLvl = PlayerPrefs.GetInt("acount");
         resourceManagementLvl = PlayerPrefs.GetInt("resource");
         analyticalThinkingLvl = PlayerPrefs.GetInt("analyticThink");
+    }
+
+    private void Awake()
+    {
+        if (DataManager.dm == null)
+        {
+            DataManager.dm = this;
+        }
+        else
+        {
+            if (DataManager.dm != this)
+            {
+                Destroy(DataManager.dm.gameObject);
+                DataManager.dm = this;
+            }
+        }
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void UpdateData()

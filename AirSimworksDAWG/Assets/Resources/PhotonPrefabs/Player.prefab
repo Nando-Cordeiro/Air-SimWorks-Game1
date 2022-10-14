@@ -1331,11 +1331,13 @@ MonoBehaviour:
   - {fileID: 3598227509644940005}
   - {fileID: 6635252869962336612}
   shield: {fileID: 881608757705507486}
+  view: {fileID: 0}
   shootSpeed: 1000
   timeBetweenShots: 1
   doSpread: 0
   activeModel: 0
   fullAuto: 0
+  totalPoints: 0
 --- !u!114 &3828039573376019867
 MonoBehaviour:
   m_ObjectHideFlags: 0

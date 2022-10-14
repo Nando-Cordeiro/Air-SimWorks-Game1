@@ -49,19 +49,19 @@ public class PointsGiver : MonoBehaviour
             dataManager.strategicThinkingLvl += totalPoints / 2;
             dataManager.decisionMakingLvl += totalPoints / 2;
         }
-        else if (gameType.gameType == StartGame.GameType.Recruit)
+        else if (gameType.gameType == StartGame.GameType.Maze)
         {
             // TODO: change these
             dataManager.strategicThinkingLvl += totalPoints / 2;
             dataManager.decisionMakingLvl += totalPoints / 2;
         }
-        else if (gameType.gameType == StartGame.GameType.Recruit)
+        else if (gameType.gameType == StartGame.GameType.Cars)
         {
             // TODO: change these
             dataManager.strategicThinkingLvl += totalPoints / 2;
             dataManager.decisionMakingLvl += totalPoints / 2;
         }
-        else if (gameType.gameType == StartGame.GameType.Recruit)
+        else if (gameType.gameType == StartGame.GameType.TowerDefense)
         {
             // TODO: change these
             dataManager.strategicThinkingLvl += totalPoints / 2;

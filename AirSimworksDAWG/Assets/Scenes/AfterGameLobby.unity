@@ -314,7 +314,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Game Type: long text to test things'
+  m_text: 'Game Type: Arena'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ee630fa2a068c21458ee6ebd5996eb41, type: 2}
   m_sharedMaterial: {fileID: 1331199822061480346, guid: ee630fa2a068c21458ee6ebd5996eb41, type: 2}
@@ -543,10 +543,14 @@ PrefabInstance:
     - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 848922522}
     - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetMPScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -891,7 +895,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Game Type: long text to test things'
+  m_text: 'Game Type: Arena'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ee630fa2a068c21458ee6ebd5996eb41, type: 2}
   m_sharedMaterial: {fileID: 1331199822061480346, guid: ee630fa2a068c21458ee6ebd5996eb41, type: 2}
@@ -1594,6 +1598,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f7268409d1a634aa0b71df1a6d77f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pr: {fileID: 0}
+  waiting: {fileID: 153587347}
+  host: {fileID: 471264959}
+  levelSelect: {fileID: 780444396}
+  hostLevelText: {fileID: 59301552}
+  waitingLevelText: {fileID: 511271678}
 --- !u!1 &882588869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1811,8 +1821,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PhotonRoom, Assembly-CSharp
+      - m_Target: {fileID: 848922522}
+        m_TargetAssemblyTypeName: LobbyMenu, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
@@ -1879,10 +1889,14 @@ PrefabInstance:
     - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 848922522}
     - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetMPScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -2682,10 +2696,14 @@ PrefabInstance:
     - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 848922522}
     - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetMPScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -2865,8 +2883,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PhotonLobby, Assembly-CSharp
+      - m_Target: {fileID: 848922522}
+        m_TargetAssemblyTypeName: LobbyMenu, Assembly-CSharp
         m_MethodName: CancelSearch
         m_Mode: 1
         m_Arguments:
@@ -3073,8 +3091,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PhotonLobby, Assembly-CSharp
+      - m_Target: {fileID: 848922522}
+        m_TargetAssemblyTypeName: LobbyMenu, Assembly-CSharp
         m_MethodName: CancelSearch
         m_Mode: 1
         m_Arguments:
@@ -3340,8 +3358,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PhotonLobby, Assembly-CSharp
+      - m_Target: {fileID: 848922522}
+        m_TargetAssemblyTypeName: LobbyMenu, Assembly-CSharp
         m_MethodName: ReturnButton
         m_Mode: 1
         m_Arguments:
@@ -3746,7 +3764,7 @@ GameObject:
   - component: {fileID: 1984857019}
   - component: {fileID: 1984857018}
   m_Layer: 5
-  m_Name: StartGame (1)
+  m_Name: LevelSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3816,8 +3834,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PhotonLobby, Assembly-CSharp
+      - m_Target: {fileID: 848922522}
+        m_TargetAssemblyTypeName: LobbyMenu, Assembly-CSharp
         m_MethodName: LevelSelectButton
         m_Mode: 1
         m_Arguments:
@@ -3884,10 +3902,14 @@ PrefabInstance:
     - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 848922522}
     - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetMPScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4006,10 +4028,14 @@ PrefabInstance:
     - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 848922522}
     - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetMPScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767142813863561526, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4767142813863561527, guid: b90755fa11727814b887d1c1f19b7ab9, type: 3}
       propertyPath: m_Pivot.x

@@ -448,7 +448,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Game Type: long text to test things'
+  m_text: 'Game Type: Arena'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ee630fa2a068c21458ee6ebd5996eb41, type: 2}
   m_sharedMaterial: {fileID: 1331199822061480346, guid: ee630fa2a068c21458ee6ebd5996eb41, type: 2}
@@ -2009,7 +2009,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Game Type: long text to test things'
+  m_text: 'Game Type: Arena'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ee630fa2a068c21458ee6ebd5996eb41, type: 2}
   m_sharedMaterial: {fileID: 1331199822061480346, guid: ee630fa2a068c21458ee6ebd5996eb41, type: 2}
@@ -3620,6 +3620,7 @@ MonoBehaviour:
   startUI: {fileID: 318908798}
   roomName: {fileID: 68336298}
   mpScene: 1
+  pr: {fileID: 0}
 --- !u!4 &1205093463
 Transform:
   m_ObjectHideFlags: 0
@@ -5972,7 +5973,7 @@ GameObject:
   - component: {fileID: 1984857019}
   - component: {fileID: 1984857018}
   m_Layer: 5
-  m_Name: StartGame (1)
+  m_Name: LevelSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

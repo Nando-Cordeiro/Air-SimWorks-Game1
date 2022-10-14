@@ -23,7 +23,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     public int mpScene = 0;
 
-    PhotonRoom pr;
+    public PhotonRoom pr;
     //MultiplayerSetting ms;
 
     private void Awake()

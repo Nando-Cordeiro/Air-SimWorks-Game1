@@ -100,7 +100,7 @@ public class Gun : MonoBehaviour
 
 
                 Destroy(hit.collider.gameObject);
-                Debug.Log("Destroyed a Target");
+                //Debug.Log("Destroyed a Target");
             }
             else if (hit.collider.tag == "Player")
             {
@@ -113,7 +113,7 @@ public class Gun : MonoBehaviour
 
 
         // set points locally for others to reference
-        totalPoints = manager.totalPoints;
+        if (manager != null) totalPoints = manager.totalPoints;
     }
 
     public void Die()
