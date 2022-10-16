@@ -142,11 +142,12 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         CreateRoom();
     }
 
-    public void CancelSearch()
+    public void CancelSearch() // todo: add check to remove all players if host leaves
     {
         hostUI.SetActive(false);
         waitingUI.SetActive(false);
         startUI.SetActive(true);
+        FindObjectOfType<MainMenu>().mainUI.SetActive(false);
         PhotonNetwork.LeaveRoom();
         pr.inaRoom = false;
     }

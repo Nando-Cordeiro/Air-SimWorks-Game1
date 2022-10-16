@@ -239,7 +239,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
         if (playersInGame == PhotonNetwork.PlayerList.Length)
         {
-            view.RPC("RPC_CreatePlayer", RpcTarget.All);
+            //view.RPC("RPC_CreatePlayer", RpcTarget.All);
         }
     }
 
@@ -271,10 +271,10 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     [PunRPC]
     public void HostLeft()
     {
+        PhotonNetwork.LoadLevel("Main Menu");
         PhotonNetwork.LeaveRoom();
-        Destroy(gameObject);
-        SceneManager.LoadScene(0);
-
+        Destroy(room.gameObject);
+        //SceneManager.LoadScene("Main Menu");
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

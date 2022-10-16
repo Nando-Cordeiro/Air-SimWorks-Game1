@@ -69,6 +69,8 @@ public class Gun : MonoBehaviour
 
         activeModel = num;
 
+        shield.SetActive(true);
+
         // set stats
 
 
@@ -95,9 +97,11 @@ public class Gun : MonoBehaviour
             {
                 int _p = hit.collider.GetComponent<Target>().pointValue;
 
-                manager.points += _p;
-                manager.totalPoints += _p;
-
+                if (manager != null)
+                {
+                    manager.points += _p;
+                    manager.totalPoints += _p;
+                }
 
                 Destroy(hit.collider.gameObject);
                 //Debug.Log("Destroyed a Target");
@@ -114,6 +118,12 @@ public class Gun : MonoBehaviour
 
         // set points locally for others to reference
         if (manager != null) totalPoints = manager.totalPoints;
+    }
+
+    [PunRPC]
+    public void DisableShield()
+    {
+        shield.SetActive(false);
     }
 
     public void Die()

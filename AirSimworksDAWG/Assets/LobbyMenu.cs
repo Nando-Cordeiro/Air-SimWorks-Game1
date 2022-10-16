@@ -55,7 +55,7 @@ public class LobbyMenu : MonoBehaviour
         {
             PhotonNetwork.LeaveRoom();
             Destroy(pr);
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("Main Menu");
         }
     }
 

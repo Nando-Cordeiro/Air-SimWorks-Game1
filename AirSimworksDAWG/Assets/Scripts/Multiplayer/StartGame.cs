@@ -133,7 +133,18 @@ public class StartGame : MonoBehaviour
                 if (p.GetComponent<PhotonView>().IsMine) g = p.gameObject;
             }
 
-            players.Add(g);
+            if (g != null) players.Add(g);
+            else
+            {
+                PR.RPC_CreatePlayer();
+
+                foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    if (p.GetComponent<PhotonView>().IsMine) g = p.gameObject;
+                }
+
+                players.Add(g);
+            }
         }
     }
 

@@ -64,12 +64,16 @@ public class FPSGameManager : MonoBehaviour
 
         if (points >= pointsToNextWeapon)
         {
-
             if (upgradesAvailable != null)
             {
                 upgradesAvailable.SetActive(true);
 
                 player.shield.SetActive(false);
+
+                if (player != null)
+                {
+                    player.view.RPC("DisableShield", RpcTarget.All);
+                }
 
                 nextGun1 = Random.Range(0, player.models.Length);
                 nextGun2 = Random.Range(0, player.models.Length);
@@ -80,12 +84,15 @@ public class FPSGameManager : MonoBehaviour
             {
                 // choice 1
                 //player.ChangeModel(nextGun1);
-                player.view.RPC("ChangeModel", RpcTarget.All, nextGun1);
+                if (player != null)
+                {
+                    player.view.RPC("ChangeModel", RpcTarget.All, nextGun1);
+                    player.shield.SetActive(true);
+                }
 
                 points = points - pointsToNextWeapon;
                 upgradesAvailable.SetActive(false);
 
-                player.shield.SetActive(true);
             }
 
             // chose new weapon
@@ -93,12 +100,15 @@ public class FPSGameManager : MonoBehaviour
             {
                 // choice 2
                 //player.ChangeModel(nextGun2);
-                player.view.RPC("ChangeModel", RpcTarget.All, nextGun2);
+                if (player != null)
+                {
+                    player.view.RPC("ChangeModel", RpcTarget.All, nextGun2);
+                    player.shield.SetActive(true);
+                }
 
                 points = points - pointsToNextWeapon;
                 upgradesAvailable.SetActive(false);
 
-                player.shield.SetActive(true);
             }
 
             if (Input.GetKeyDown(KeyCode.Backspace))
@@ -122,7 +132,8 @@ public class FPSGameManager : MonoBehaviour
 
         if (nextWeaponText != null) nextWeaponText.text = "" + points;
         if (pointsText != null) pointsText.text = "Total points: " + totalPoints;
-        if (timeText != null) timeText.text = "Time remaining " + m + ":" + (int)s;
+        if (timeText != null && s >= 10f) timeText.text = "Time remaining " + m + ":" + (int)s;
+        else if (timeText != null && s < 10f) timeText.text = "Time remaining " + m + ":0" + (int)s;
     }
 
     void EndGame()

@@ -45,6 +45,7 @@ MonoBehaviour:
   - Shoot
   - RPC_ChangeGametype
   - HostLeft
+  - DisableShield
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
