@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 
 public class FPSGameManager : MonoBehaviour
 {
@@ -139,6 +140,13 @@ public class FPSGameManager : MonoBehaviour
     void EndGame()
     {
         FindObjectOfType<PointsGiver>().GiveOutPoints();
+
+        DataManager dm = FindObjectOfType<DataManager>();
+        dm.lastGamesPoints = totalPoints; // set after every game
+
+        // set per level
+        dm.skill1 = DataManager.Skills.StrategicThinking;
+        dm.skill2 = DataManager.Skills.DecisionMaking;
 
         if (!PhotonNetwork.IsMasterClient)
         {

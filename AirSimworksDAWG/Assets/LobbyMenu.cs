@@ -11,7 +11,7 @@ public class LobbyMenu : MonoBehaviour
 
     [Header("UI")]
     public GameObject waiting;
-    public GameObject host, levelSelect;
+    public GameObject host, levelSelect, xp;
     public TextMeshProUGUI hostLevelText, waitingLevelText;
 
 
@@ -19,11 +19,6 @@ public class LobbyMenu : MonoBehaviour
     {
         waiting.SetActive(false);
         host.SetActive(false);
-
-        pr = FindObjectOfType<PhotonRoom>();
-
-        if (pr.myNumberInRoom == 1) host.SetActive(true);
-        else waiting.SetActive(true);
 
         SetVariables();
     }
@@ -81,6 +76,16 @@ public class LobbyMenu : MonoBehaviour
     {
         levelSelect.SetActive(true);
         host.SetActive(false);
+    }
+
+    public void ContinueButton()
+    {
+        xp.SetActive(false);
+
+        pr = FindObjectOfType<PhotonRoom>();
+
+        if (pr.myNumberInRoom == 1) host.SetActive(true);
+        else waiting.SetActive(true);
     }
 
 }

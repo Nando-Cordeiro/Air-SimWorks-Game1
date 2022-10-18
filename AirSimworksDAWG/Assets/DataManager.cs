@@ -7,6 +7,24 @@ public class DataManager : MonoBehaviour
 {
     static DataManager dm;
 
+    public int lastGamesPoints;
+
+    public enum Skills
+    {
+        StrategicThinking,
+        DecisionMaking,
+        Flexibility,
+        Communication,
+        FostersInclusion,
+        Teamwork,
+        SelfControl,
+        Accountability,
+        ResourceManagement,
+        AnalyticalThinking,
+    }
+
+    public Skills skill1, skill2;
+
     [Header("Developing Self")]
     public int accountabilityLvl;
     public int communicationLvl;
@@ -27,16 +45,16 @@ public class DataManager : MonoBehaviour
 
     private void Start()
     {
-        strategicThinkingLvl = PlayerPrefs.GetInt("StrThink");
-        decisionMakingLvl = PlayerPrefs.GetInt("decMake");
-        flexibilityLvl = PlayerPrefs.GetInt("flex");
-        communicationLvl = PlayerPrefs.GetInt("commun");
-        fostersInclusionLvl = PlayerPrefs.GetInt("fostInclu");
-        teamworkLvl = PlayerPrefs.GetInt("teamwork");
-        selfControlLvl = PlayerPrefs.GetInt("selfControl");
-        accountabilityLvl = PlayerPrefs.GetInt("acount");
-        resourceManagementLvl = PlayerPrefs.GetInt("resource");
-        analyticalThinkingLvl = PlayerPrefs.GetInt("analyticThink");
+        strategicThinkingLvl = PlayerPrefs.GetInt("StrategicThinking");
+        decisionMakingLvl = PlayerPrefs.GetInt("DecisionMaking");
+        flexibilityLvl = PlayerPrefs.GetInt("Flexibility");
+        communicationLvl = PlayerPrefs.GetInt("Communication");
+        fostersInclusionLvl = PlayerPrefs.GetInt("FostersInclusion");
+        teamworkLvl = PlayerPrefs.GetInt("Teamwork");
+        selfControlLvl = PlayerPrefs.GetInt("SelfControl");
+        accountabilityLvl = PlayerPrefs.GetInt("Accountability");
+        resourceManagementLvl = PlayerPrefs.GetInt("ResourceManagement");
+        analyticalThinkingLvl = PlayerPrefs.GetInt("AnalyticalThinking");
     }
 
     private void Awake()
@@ -58,15 +76,15 @@ public class DataManager : MonoBehaviour
 
     public void UpdateData()
     {
-        PlayerPrefs.SetInt("StrThink", strategicThinkingLvl);
-        PlayerPrefs.SetInt("decMake", decisionMakingLvl);
-        PlayerPrefs.SetInt("flex", flexibilityLvl);
-        PlayerPrefs.SetInt("commun", communicationLvl);
-        PlayerPrefs.SetInt("fostInclu", fostersInclusionLvl);
-        PlayerPrefs.SetInt("teamwork", teamworkLvl);
-        PlayerPrefs.SetInt("selfControl", selfControlLvl);
-        PlayerPrefs.SetInt("acount", accountabilityLvl);
-        PlayerPrefs.SetInt("resource", resourceManagementLvl);
-        PlayerPrefs.SetInt("analyticThink", analyticalThinkingLvl);
+        PlayerPrefs.SetInt("StrategicThinking", strategicThinkingLvl);
+        PlayerPrefs.SetInt("DecisionMaking", decisionMakingLvl);
+        PlayerPrefs.SetInt("Flexibility", flexibilityLvl);
+        PlayerPrefs.SetInt("Communication", communicationLvl);
+        PlayerPrefs.SetInt("FostersInclusion", fostersInclusionLvl);
+        PlayerPrefs.SetInt("Teamwork", teamworkLvl);
+        PlayerPrefs.SetInt("SelfControl", selfControlLvl);
+        PlayerPrefs.SetInt("Accountability", accountabilityLvl);
+        PlayerPrefs.SetInt("ResourceManagement", resourceManagementLvl);
+        PlayerPrefs.SetInt("AnalyticalThinking", analyticalThinkingLvl);
     }
 }
