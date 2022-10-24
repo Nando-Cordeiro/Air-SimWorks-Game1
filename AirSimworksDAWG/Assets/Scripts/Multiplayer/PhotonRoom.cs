@@ -38,7 +38,6 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     [Header("References")]
     public TextMeshProUGUI playerCountText;
     public Image playerCountImage;
-    public GameObject playerObj;
 
     private void Awake()
     {
@@ -250,12 +249,13 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
         Debug.Log("Creating player");
         GameObject g = null;
-        
-        if      (playerType == "Arena")         g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), transform.position, Quaternion.identity, 0);
-        else if (playerType == "Recruit")       g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player Variant"), transform.position, Quaternion.identity, 0);
-        else if (playerType == "Maze")          g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), transform.position, Quaternion.identity, 0);
-        else if (playerType == "Cars")          g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), transform.position, Quaternion.identity, 0);
-        else if (playerType == "TowerDefense")  g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), transform.position, Quaternion.identity, 0);
+
+        if (playerType == "Arena") g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), transform.position, Quaternion.identity, 0);
+        else if (playerType == "Recruit") g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player Variant"), transform.position, Quaternion.identity, 0);
+        else if (playerType == "Maze") g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), transform.position, Quaternion.identity, 0);
+        else if (playerType == "Car") g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CarGamePlayer"), transform.position, Quaternion.identity, 0);
+        else if (playerType == "TowerDefense") g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), transform.position, Quaternion.identity, 0);
+        else Debug.LogError("@ty your dumbass spelt shit wrong again >:(");
         //if (players.Count <= playersInRoom) 
         players.Add(g);
         Debug.Log("Added new player");

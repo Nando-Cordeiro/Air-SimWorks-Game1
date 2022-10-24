@@ -34,7 +34,7 @@ public class FPSGameManager : MonoBehaviour
     void Start()
     {
         points = 0;
-        m = 3;
+        m = FindObjectOfType<StartGame>().gameLength / 60;
 
         nextWeaponSlider.maxValue = pointsToNextWeapon;
         nextWeaponSlider.value = points;

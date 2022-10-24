@@ -26,6 +26,8 @@ public class PointsGiver : MonoBehaviour
             points += g.totalPoints;
         }
 
+        if (FindObjectOfType<CarGameManager>() != null) FindObjectOfType<CarGameManager>().points += points;
+
         if (points > totalPoints) totalPoints = points;
     }
 

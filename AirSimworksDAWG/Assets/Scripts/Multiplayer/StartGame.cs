@@ -41,9 +41,6 @@ public class StartGame : MonoBehaviour
     {
         PR = FindObjectOfType<PhotonRoom>();
 
-        //rm.players.Clear();
-        //rm.players = new List<GameObject>();
-
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -52,41 +49,11 @@ public class StartGame : MonoBehaviour
         StartCoroutine(StartTheGame());
     }
 
-    private void Update()
-    {
-        /*for (int i = 0; i < rm.players.Count; i++)
-        {
-            if (rm.players[i] != null)
-            {
-                if (rm.players[i].GetComponent<PlayerController>().finishedRace) playersFinished[i] = true;
-            }
-        }*/
-
-        //playersFinished = rm.playersFinished; // test case 1
-
-        if (GameObject.FindGameObjectsWithTag("Player").Length > PR.playersInRoom) // keep the room clear
-        {
-            foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
-            {
-                if (p != null)
-                {
-                    PhotonView view = p.GetComponent<PhotonView>();
-                    if (view.IsMine && view.ViewID > g.GetComponent<PhotonView>().ViewID) Destroy(p);
-                }
-            }
-        }
-    }
-
     public IEnumerator StartTheGame()
     {
         GetPlayer();
 
         yield return new WaitForSeconds(3f);
-
-        if (g == null && PR.playersInRoom > FindObjectsOfType<CameraController>().Length)
-        {
-            if (!GameObject.FindGameObjectWithTag("Player").GetComponent<PhotonView>().IsMine) PR.RPC_CreatePlayer();
-        }
 
         GetPlayer();
 
@@ -94,6 +61,8 @@ public class StartGame : MonoBehaviour
         if (g.GetComponent<PhotonView>().IsMine)
         {
             CharacterController c = g.GetComponent<CharacterController>();
+            ArcadeCar ac = g.GetComponent<ArcadeCar>();
+
 
             if (c != null)
             {
@@ -102,13 +71,25 @@ public class StartGame : MonoBehaviour
                 g.transform.position = spawns[PR.myNumberInRoom].position;
                 g.transform.rotation = spawns[PR.myNumberInRoom].rotation;
 
-
                 c.enabled = true;
                 g.GetComponent<playerController>().enabled = true;
                 g.GetComponentInChildren<CameraController>().enabled = true;
                 g.GetComponentInChildren<Camera>().enabled = true;
 
                 g.transform.GetChild(2).gameObject.SetActive(true);
+            }
+            else if (ac != null)
+            {
+                ac.enabled = false;
+
+                g.transform.position = spawns[PR.myNumberInRoom].position;
+                g.transform.rotation = spawns[PR.myNumberInRoom].rotation;
+
+                ac.enabled = true;
+                g.GetComponent<ArcadeCar>().enabled = true;
+                g.GetComponent<Rigidbody>().isKinematic = false;
+                g.transform.parent.GetChild(1).gameObject.SetActive(true);
+                g.transform.parent.GetChild(2).gameObject.SetActive(true);
             }
             else
             {
@@ -136,11 +117,13 @@ public class StartGame : MonoBehaviour
             if (g != null) players.Add(g);
             else
             {
-                PR.RPC_CreatePlayer();
+                PR.RPC_CreatePlayer(); // creates player if none exists
 
                 foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
                 {
-                    if (p.GetComponent<PhotonView>().IsMine) g = p.gameObject;
+                    PhotonView pv = p.GetComponent<PhotonView>();
+
+                    if (pv != null && pv.IsMine) g = p.gameObject;
                 }
 
                 players.Add(g);
@@ -150,7 +133,7 @@ public class StartGame : MonoBehaviour
 
     void EnableMe()
     {
-        foreach (CameraController p in FindObjectsOfType<CameraController>())
+        foreach (CameraController p in FindObjectsOfType<CameraController>()) // check for arcade
         {
             if (p.view.IsMine)
             {
@@ -158,6 +141,8 @@ public class StartGame : MonoBehaviour
                 p.GetComponent<Camera>().enabled = true;
                 p.GetComponent<Gun>().enabled = true;
                 p.GetComponent<AudioListener>().enabled = true;
+
+                return;
             }
         }
     }
@@ -178,17 +163,5 @@ public class StartGame : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting) // sends data to other clients
-        {
-            //stream.SendNext(playersFinished);
-        }
-        else // recieves data from other clients (needs to be in same order to work)
-        {
-            //playersFinished = (bool[])stream.ReceiveNext();
-        }
     }
 }

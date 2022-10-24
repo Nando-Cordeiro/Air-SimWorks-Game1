@@ -6,28 +6,32 @@ using UnityEngine.UI;
 public class PointCollector : MonoBehaviour
 {
     [SerializeField] float maxFallDistance;
-    [SerializeField] Text pointText;
-    int pointsGained = 0;
-    List<int> pointPool = new List<int>();
     Coroutine carReset = null;
     [SerializeField] float resetTime;
     [SerializeField] float resetSpeed;
-    [SerializeField] Transform respawnPoint;
+    StartGame sg;
+    CarGameManager manager;
+
+    private void Start()
+    {
+        sg = FindObjectOfType<StartGame>();
+        manager = FindObjectOfType<CarGameManager>();
+    }
 
     public void AddPointPool(int points)
     {
-        pointPool.Add(points);
+        manager.pointPool.Add(points);
     }
 
     public void RemovePointPool(int points)
     {
-        pointPool.Remove(points);
+        manager.pointPool.Remove(points);
     }
 
     int GetHighestValue()
     {
         int highestPoint = 0;
-        foreach (int pointValue in pointPool)
+        foreach (int pointValue in manager.pointPool)
         {
             if(pointValue > highestPoint)
             {
@@ -40,8 +44,7 @@ public class PointCollector : MonoBehaviour
 
     private IEnumerator CarReset()
     {
-        pointsGained += GetHighestValue();
-        pointText.text = pointsGained.ToString();
+        manager.points += GetHighestValue();
 
         float timer = resetTime;
 
@@ -51,16 +54,18 @@ public class PointCollector : MonoBehaviour
             yield return null;
         }
 
-        this.transform.position = respawnPoint.position;
-        pointPool.Clear();
+        this.transform.position = sg.spawns[Random.Range(0, sg.spawns.Length)].position;
+        this.transform.rotation = sg.spawns[Random.Range(0, sg.spawns.Length)].rotation;
+        manager.pointPool.Clear();
         carReset = null;
     }
 
     void ResetCar()
     {
-        pointPool.Clear();
+        manager.pointPool.Clear();
         this.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        this.transform.position = respawnPoint.position;
+        this.transform.position = sg.spawns[Random.Range(0, sg.spawns.Length)].position;
+        this.transform.rotation = sg.spawns[Random.Range(0, sg.spawns.Length)].rotation;
     }
 
     private void OnCollisionEnter(Collision collision)
