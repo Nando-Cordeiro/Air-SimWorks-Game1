@@ -35,13 +35,22 @@ public class TowerDefenseGameManager : MonoBehaviour
         cursorFollow = cursorObject;
         GainCredits(waveCredits);
         gameTimer = gameTime;
+        lockCursor();
+    }
+
+    private static void lockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     private void Update()
     {
         UpdateGameTimer();
         CalculateMouse();
+        StartWave();
     }
+
 
     void CalculateMouse()
     {
@@ -92,10 +101,14 @@ public class TowerDefenseGameManager : MonoBehaviour
 
     public void StartWave()
     {
-        SetPurchaseActive(false);
-        enemiesLeft = numWaveEnemies;
-        SpawnEnemies();
-        StartCoroutine(CountDownSpawn());
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            SetPurchaseActive(false);
+            enemiesLeft = numWaveEnemies;
+            SpawnEnemies();
+            StartCoroutine(CountDownSpawn());
+        }
+        
 
     }
 
@@ -159,6 +172,7 @@ public class TowerDefenseGameManager : MonoBehaviour
         if(playerCredits >= turretCost)
         {
             Debug.Log("Purchased Turret");
+            MenuManager.instance.storeOpenAndClose();
             playerCredits -= turretCost;
             UpdateCreditDisplay();
             cursorFollow = Instantiate(defaultSelectTurret, cursorFollow.transform.position, Quaternion.identity);
