@@ -3648,50 +3648,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MazePlayer
       objectReference: {fileID: 0}
-    - target: {fileID: 3278430197491603974, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3717458515855520894, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 7784762814367104187}
-    - target: {fileID: 3717458515855520894, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
-      propertyPath: texts.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3717458515855520894, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
-      propertyPath: texts.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3717458515855520894, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
-      propertyPath: texts.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3717458516117837837, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3717458517571090688, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3717458517828562983, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3717458517828563002, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3717458517913371266, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3717458517913371269, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5679954044452983336, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -3736,8 +3692,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3717458517258759197, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
+    - target: {fileID: 6889971263152959532, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
+      propertyPath: spectator
+      value: 
+      objectReference: {fileID: 3717458517258759197, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 394fbf588e0757048be1f86652d95afb, type: 3}
 --- !u!114 &7784762814367104187 stripped
 MonoBehaviour:

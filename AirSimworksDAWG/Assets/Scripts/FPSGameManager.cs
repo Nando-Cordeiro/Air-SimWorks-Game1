@@ -45,6 +45,14 @@ public class FPSGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player == null)
+        {
+            // todo: check player for local
+            player = FindObjectOfType<Gun>();
+        }
+
+        if (!player.view.IsMine) return;
+
         if (m > -1) s -= Time.deltaTime;
         else
         {
@@ -52,15 +60,10 @@ public class FPSGameManager : MonoBehaviour
             if (!ended) EndGame();
         }
 
-        if (s <= 0f) {
+        if (s <= 0f)
+        {
             m--;
             s = 60;
-        }
-
-        if (player == null)
-        {
-            // todo: check player for local
-            player = FindObjectOfType<Gun>();
         }
 
         if (points >= pointsToNextWeapon)

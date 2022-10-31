@@ -147,7 +147,10 @@ MonoBehaviour:
   walkSpeed: 125
   runSpeed: 175
   dragValue: 20
-  texts: []
+  cam: {fileID: 6889971263152959532}
+  texts:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!54 &3717458515855520889
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -175,7 +178,6 @@ GameObject:
   - component: {fileID: 3717458517258759198}
   - component: {fileID: 3717458517258759199}
   - component: {fileID: 3717458517258759184}
-  - component: {fileID: 3717458517258759197}
   m_Layer: 0
   m_Name: Spectator Camera
   m_TagString: Untagged
@@ -248,25 +250,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3717458517258759185}
   m_Enabled: 1
---- !u!114 &3717458517258759197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3717458517258759185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2ad5d5a26d65904e93bc3009703a33b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arrows:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  playerCam: {fileID: 6889971263152959532}
-  cancelDirection: {fileID: 0}
 --- !u!1 &6889971262224230191
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,7 +396,7 @@ MonoBehaviour:
   arrow: {fileID: 0}
   arrowPivot: {fileID: 0}
   cancelDirection: {fileID: 0}
-  spectator: {fileID: 3717458517258759197}
+  spectator: {fileID: 0}
 --- !u!1 &7366246473979425167
 GameObject:
   m_ObjectHideFlags: 0
