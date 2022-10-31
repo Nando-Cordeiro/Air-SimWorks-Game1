@@ -30,16 +30,16 @@ public class PlayerCam : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-           playerCam.enabled = !playerCam.enabled;
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //   playerCam.enabled = !playerCam.enabled;
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            EnableDirectionCancel(true);
-            spectator.EnableDirectionCancel(true);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    EnableDirectionCancel(true);
+        //    spectator.EnableDirectionCancel(true);
+        //}
     }
 
     public void SwitchPlayersLocal()
@@ -47,10 +47,10 @@ public class PlayerCam : MonoBehaviour
         playerCam.enabled = !playerCam.enabled;
     }
 
-    public void EnableDirectionCancel(bool state)
-    {
-        cancelDirection.SetActive(state);
-    }
+    //public void EnableDirectionCancel(bool state)
+    //{
+    //    cancelDirection.SetActive(state);
+    //}
 
     // Update is called once per frame
     void LateUpdate()
@@ -62,8 +62,10 @@ public class PlayerCam : MonoBehaviour
 
         this.transform.rotation = Quaternion.Euler(xRot, yRot, 0);
 
-        arrowDirection.z = this.transform.localEulerAngles.y;
-        arrow.transform.localEulerAngles = arrowDirection;
+        //arrowDirection.z = this.transform.localEulerAngles.y;
+        //arrow.transform.localEulerAngles = arrowDirection;
+
+
         //arrow.transform.eulerAngles = arrowDirection;
         //Quaternion.Euler(0, 0, this.transform.rotation.y);
     }

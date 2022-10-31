@@ -26,7 +26,7 @@ public class StartGame : MonoBehaviour
 
     public float timeBeforeStart = 30f;
 
-    GameObject g;
+    public GameObject g;
 
     public bool[] playersFinished;
 

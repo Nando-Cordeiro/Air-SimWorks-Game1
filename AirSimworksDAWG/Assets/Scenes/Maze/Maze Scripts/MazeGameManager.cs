@@ -1,6 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 public class MazeGameManager : MonoBehaviour
@@ -8,16 +11,33 @@ public class MazeGameManager : MonoBehaviour
     [SerializeField] float gameTime;
     [SerializeField] float switchTime;
     [SerializeField] float drainRate;
-    [SerializeField] PlayerCam playerCam;
+    public PlayerCam playerCam;
     float gameTimer;
     float switchTimer;
-    [SerializeField] Text playerText;
-    [SerializeField] Text spectatorText;
+    //public TextMeshProUGUI[] switchTimeTexts;
     [SerializeField] SpawnManager spawnManager;
-    [SerializeField] Text[] gameTimeTexts;
+    [SerializeField] TextMeshProUGUI timeText, pointsText;
+    public TextMeshProUGUI switchTimeText;
+
+    public GameObject[] spawnPoints;
+    StartGame sg;
+    public MazeUI mazeUI;
+
+    public int points;
+    float m, s;
+    private bool ended;
 
     private void Start()
     {
+        sg = FindObjectOfType<StartGame>();
+
+        if (sg.PR != null && sg.PR.myNumberInRoom % 2 == 0)
+        {
+            mazeUI.spectating = true;
+        }
+
+        m = sg.gameLength / 60;
+
         gameTimer = gameTime;
         switchTimer = switchTime;
     }
@@ -30,8 +50,7 @@ public class MazeGameManager : MonoBehaviour
     void UpdateSwitchTimer()
     {
         //update display 
-        playerText.text = switchTimer.ToString("F2");
-        spectatorText.text = switchTimer.ToString("F2");
+        switchTimeText.text = ((int)switchTimer).ToString("F2");
 
         if(gameTimer >= 0)
         {
@@ -56,20 +75,45 @@ public class MazeGameManager : MonoBehaviour
 
     void UpdateGameTimer()
     {
-        //update display
-        foreach (Text gameTimeText in gameTimeTexts)
-        {
-            gameTimeText.text = gameTimer.ToString("F2");
-        }
-
-        //count down
-        if (gameTimer >= 0)
-        {
-            gameTimer -= (Time.deltaTime * drainRate);
-        }
+        if (m > -1) s -= Time.deltaTime;
         else
         {
-            gameTimer = 0;
+            // end the game if time goes below 0
+            if (!ended) EndGame();
         }
+
+        if (s <= 0f)
+        {
+            m--;
+            s = 60;
+        }
+    }
+
+    private void OnGUI()
+    {
+        if (pointsText != null) pointsText.text = "Total points: " + points;
+        if (timeText != null && s >= 10f) timeText.text = "Time remaining " + m + ":" + (int)s;
+        else if (timeText != null && s < 10f) timeText.text = "Time remaining " + m + ":0" + (int)s;
+    }
+
+    void EndGame()
+    {
+        FindObjectOfType<PointsGiver>().GiveOutPoints();
+
+        DataManager dm = FindObjectOfType<DataManager>();
+        dm.lastGamesPoints = points; // set after every game
+
+        // set per level
+        dm.skill1 = DataManager.Skills.StrategicThinking;
+        dm.skill2 = DataManager.Skills.DecisionMaking;
+
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+
+        ended = true;
+
+        PhotonNetwork.LoadLevel("AfterGameLobby");
     }
 }

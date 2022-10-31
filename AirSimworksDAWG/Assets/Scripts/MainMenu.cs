@@ -18,4 +18,9 @@ public class MainMenu : MonoBehaviour
         mainUI.SetActive(false);
         startUI.SetActive(true);
     }
+
+    public void QuitButton()
+    {
+        Application.Quit();
+    }
 }

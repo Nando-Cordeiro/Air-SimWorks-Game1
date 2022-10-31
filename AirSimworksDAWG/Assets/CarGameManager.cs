@@ -59,8 +59,8 @@ public class CarGameManager : MonoBehaviour
         dm.lastGamesPoints = points; // set after every game
 
         // set per level
-        dm.skill1 = DataManager.Skills.StrategicThinking;
-        dm.skill2 = DataManager.Skills.DecisionMaking;
+        dm.skill1 = DataManager.Skills.SelfControl;
+        dm.skill2 = DataManager.Skills.Accountability;
 
         if (!PhotonNetwork.IsMasterClient)
         {

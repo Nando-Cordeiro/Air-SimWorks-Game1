@@ -17,6 +17,8 @@ public class LobbyMenu : MonoBehaviour
 
     void Awake()
     {
+        pr = FindObjectOfType<PhotonRoom>();
+
         waiting.SetActive(false);
         host.SetActive(false);
 

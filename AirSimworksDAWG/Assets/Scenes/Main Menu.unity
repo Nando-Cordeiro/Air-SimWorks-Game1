@@ -1002,7 +1002,6 @@ GameObject:
   - component: {fileID: 215349136}
   - component: {fileID: 215349135}
   - component: {fileID: 215349134}
-  - component: {fileID: 215349137}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -1074,9 +1073,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 215349137}
-        m_TargetAssemblyTypeName: quit, Assembly-CSharp
-        m_MethodName: clicked
+      - m_Target: {fileID: 848922522}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: QuitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1124,18 +1123,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215349132}
   m_CullTransparentMesh: 1
---- !u!114 &215349137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 215349132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3966ce9fbb07ec4fa2614dd46deb347, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &271841907
 GameObject:
   m_ObjectHideFlags: 0
@@ -2263,7 +2250,6 @@ MonoBehaviour:
   gametypeWaitingText: {fileID: 511271678}
   playerCountText: {fileID: 0}
   playerCountImage: {fileID: 0}
-  playerObj: {fileID: 0}
 --- !u!4 &646291227
 Transform:
   m_ObjectHideFlags: 0
@@ -4945,6 +4931,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ecd46efae4c6148a6c16b6f4d2ab0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastGamesPoints: 0
+  skill1: 0
+  skill2: 0
   accountabilityLvl: 0
   communicationLvl: 0
   decisionMakingLvl: 0

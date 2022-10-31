@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +20,11 @@ public class PlayerMovement : MonoBehaviour
     Vector3 input = Vector3.zero;
     Vector3 friction = Vector3.zero;
 
-    [SerializeField] GameObject[] spawnPoints;
+    MazeGameManager mm;
+
+    public PlayerCam cam;
+
+    public TextMeshProUGUI[] texts; 
 
     private void Awake()
     {
@@ -28,13 +33,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        SpawnPlayer();
+        //SpawnPlayer();
+        mm.playerCam = cam;
     }
 
     void Update()
     {
         GetInput();
     }
+
     private void FixedUpdate()
     {
         ApplyFriction();
@@ -70,6 +77,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void SpawnPlayer()
     {
-        this.transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+        this.transform.position = mm.spawnPoints[Random.Range(0, mm.spawnPoints.Length)].transform.position;
     }
 }
