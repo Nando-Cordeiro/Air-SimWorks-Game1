@@ -9,48 +9,30 @@ public class PlayerCam : MonoBehaviour
     float yRot;
     public float mouseSense;
     [SerializeField] Rigidbody playerRB;
-    [SerializeField] Image arrow;
     Vector3 arrowDirection = Vector3.zero;
-    [SerializeField] GameObject arrowPivot;
-    Camera playerCam;
-    [SerializeField] GameObject cancelDirection;
-    [SerializeField] SpectatorScript spectator;
+    public Camera walkCam, spectatorCam;
+
+    MazeGameManager mm;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerCam = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-    }
-    public void ChangeArrowDirection(Vector3 direction)
-    {
-        arrowPivot.transform.localEulerAngles = direction;
-    }
 
-    private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.T))
-        //{
-        //   playerCam.enabled = !playerCam.enabled;
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    EnableDirectionCancel(true);
-        //    spectator.EnableDirectionCancel(true);
-        //}
+        mm = FindObjectOfType<MazeGameManager>();
     }
 
     public void SwitchPlayersLocal()
     {
-        playerCam.enabled = !playerCam.enabled;
+        walkCam.enabled = !walkCam.enabled;
+        spectatorCam.enabled = !spectatorCam.enabled;
     }
 
-    //public void EnableDirectionCancel(bool state)
-    //{
-    //    cancelDirection.SetActive(state);
-    //}
+    private void Update()
+    {
+        if (mm == null) mm = FindObjectOfType<MazeGameManager>();
+    }
 
     // Update is called once per frame
     void LateUpdate()
@@ -73,10 +55,5 @@ public class PlayerCam : MonoBehaviour
     private void FixedUpdate()
     {
         playerRB.MoveRotation(Quaternion.Euler(0, yRot, 0));
-    }
-
-    public void EnableArrow(bool state)
-    {
-        arrow.enabled = state;
     }
 }

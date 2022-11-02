@@ -46,6 +46,8 @@ MonoBehaviour:
   - RPC_ChangeGametype
   - HostLeft
   - DisableShield
+  - RPC_UpdateNumber
+  - UpdateArrow
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

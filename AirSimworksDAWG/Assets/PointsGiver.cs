@@ -21,12 +21,11 @@ public class PointsGiver : MonoBehaviour
     {
         points = 0;
 
-        foreach (Gun g in FindObjectsOfType<Gun>())
-        {
-            points += g.totalPoints;
-        }
+        foreach (Gun g in FindObjectsOfType<Gun>())  points += g.totalPoints;
 
-        if (FindObjectOfType<CarGameManager>() != null) FindObjectOfType<CarGameManager>().points += points;
+        foreach (CarGameManager cgm in FindObjectsOfType<CarGameManager>()) FindObjectOfType<CarGameManager>().points += points;
+
+        foreach (MazeGameManager mgm in FindObjectsOfType<MazeGameManager>()) FindObjectOfType<MazeGameManager>().points += points;
 
         if (points > totalPoints) totalPoints = points;
     }
@@ -54,14 +53,14 @@ public class PointsGiver : MonoBehaviour
         else if (gameType.gameType == StartGame.GameType.Maze)
         {
             // TODO: change these
-            dataManager.strategicThinkingLvl += totalPoints / 2;
-            dataManager.decisionMakingLvl += totalPoints / 2;
+            dataManager.flexibilityLvl += totalPoints / 2;
+            dataManager.communicationLvl += totalPoints / 2;
         }
         else if (gameType.gameType == StartGame.GameType.Cars)
         {
             // TODO: change these
-            dataManager.strategicThinkingLvl += totalPoints / 2;
-            dataManager.decisionMakingLvl += totalPoints / 2;
+            dataManager.selfControlLvl += totalPoints / 2;
+            dataManager.accountabilityLvl += totalPoints / 2;
         }
         else if (gameType.gameType == StartGame.GameType.TowerDefense)
         {
@@ -69,6 +68,7 @@ public class PointsGiver : MonoBehaviour
             dataManager.strategicThinkingLvl += totalPoints / 2;
             dataManager.decisionMakingLvl += totalPoints / 2;
         }
+        else Debug.LogError("Game type does not match level");
 
         dataManager.UpdateData();
     }

@@ -20,7 +20,7 @@ public class MazeGameManager : MonoBehaviour
     public TextMeshProUGUI switchTimeText;
 
     public GameObject[] spawnPoints;
-    StartGame sg;
+    public StartGame sg;
     public MazeUI mazeUI;
 
     public int points;
@@ -31,7 +31,7 @@ public class MazeGameManager : MonoBehaviour
     {
         sg = FindObjectOfType<StartGame>();
 
-        if (sg.PR != null && sg.PR.myNumberInRoom % 2 == 0)
+        if (sg.PR != null && sg.PR.myNumberInRoom % 2 == 1)
         {
             mazeUI.spectating = true;
         }
@@ -63,6 +63,7 @@ public class MazeGameManager : MonoBehaviour
             {
                 spawnManager.RandomizeMazeSection();
                 playerCam.SwitchPlayersLocal();
+                mazeUI.spectating = !mazeUI.spectating;
                 switchTimer = switchTime;
             }
         }
@@ -104,8 +105,8 @@ public class MazeGameManager : MonoBehaviour
         dm.lastGamesPoints = points; // set after every game
 
         // set per level
-        dm.skill1 = DataManager.Skills.StrategicThinking;
-        dm.skill2 = DataManager.Skills.DecisionMaking;
+        dm.skill1 = DataManager.Skills.Flexibility;
+        dm.skill2 = DataManager.Skills.Communication;
 
         if (!PhotonNetwork.IsMasterClient)
         {

@@ -28,7 +28,7 @@ public class StartGame : MonoBehaviour
 
     public GameObject g;
 
-    public bool[] playersFinished;
+    //public bool[] playersFinished;
 
     public GameObject startCam;
 
@@ -68,9 +68,9 @@ public class StartGame : MonoBehaviour
             {
                 c.enabled = false;
 
-                g.transform.position = spawns[PR.myNumberInRoom].position;
-                g.transform.rotation = spawns[PR.myNumberInRoom].rotation;
-
+                if (spawns.Length < PR.myNumberInRoom) g.transform.SetPositionAndRotation(spawns[0].position, spawns[0].rotation);
+                else g.transform.SetPositionAndRotation(spawns[PR.myNumberInRoom].position, spawns[PR.myNumberInRoom].rotation);
+                
                 c.enabled = true;
                 g.GetComponent<playerController>().enabled = true;
                 g.GetComponentInChildren<CameraController>().enabled = true;
@@ -82,9 +82,9 @@ public class StartGame : MonoBehaviour
             {
                 ac.enabled = false;
 
-                g.transform.position = spawns[PR.myNumberInRoom].position;
-                g.transform.rotation = spawns[PR.myNumberInRoom].rotation;
-
+                if (spawns.Length < PR.myNumberInRoom) g.transform.SetPositionAndRotation(spawns[0].position, spawns[0].rotation);
+                else g.transform.SetPositionAndRotation(spawns[PR.myNumberInRoom].position, spawns[PR.myNumberInRoom].rotation);
+                
                 ac.enabled = true;
                 g.GetComponent<ArcadeCar>().enabled = true;
                 g.GetComponent<Rigidbody>().isKinematic = false;
@@ -93,8 +93,8 @@ public class StartGame : MonoBehaviour
             }
             else
             {
-                g.transform.position = spawns[PR.myNumberInRoom].position;
-                g.transform.rotation = spawns[PR.myNumberInRoom].rotation;
+                if (spawns.Length < PR.myNumberInRoom) g.transform.SetPositionAndRotation(spawns[0].position, spawns[0].rotation);
+                else g.transform.SetPositionAndRotation(spawns[PR.myNumberInRoom].position, spawns[PR.myNumberInRoom].rotation);
             }
         }
 

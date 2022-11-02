@@ -1,11 +1,15 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MazeUI : MonoBehaviour
 {
     public bool spectating;
+
+    public TextMeshProUGUI teamColorText;
 
     [Header("Spectator")]
     public GameObject s_UI;
@@ -26,11 +30,11 @@ public class MazeUI : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.UpArrow)) UpdateArrow(0);
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow)) UpdateArrow(1);
+            if (Input.GetKeyDown(KeyCode.RightArrow)) UpdateArrow(1);
 
             if (Input.GetKeyDown(KeyCode.DownArrow)) UpdateArrow(2);
 
-            if (Input.GetKeyDown(KeyCode.RightArrow)) UpdateArrow(3);
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) UpdateArrow(3);
         }
         else // walking
         {
@@ -41,8 +45,8 @@ public class MazeUI : MonoBehaviour
         }
     }
 
-
-    void UpdateArrow(int i)
+    [PunRPC]
+    void UpdateArrow(int i) // need to send to other client
     {
         foreach (var a in s_arrows)
         {

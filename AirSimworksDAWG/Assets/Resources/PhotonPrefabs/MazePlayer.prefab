@@ -47,6 +47,8 @@ GameObject:
   - component: {fileID: 3717458515855520893}
   - component: {fileID: 3717458515855520894}
   - component: {fileID: 3717458515855520889}
+  - component: {fileID: 3717458516779519130}
+  - component: {fileID: 3717458516779519129}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -96,7 +98,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ec7742ca267b06a46ba74b31d419f2b7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -148,9 +150,12 @@ MonoBehaviour:
   runSpeed: 175
   dragValue: 20
   cam: {fileID: 6889971263152959532}
-  texts:
-  - {fileID: 0}
-  - {fileID: 0}
+  view: {fileID: 3717458516779519130}
+  playerNumberInRoom: 0
+  teamColors:
+  - {fileID: 2100000, guid: 4ec765ea1a9171f40bf34ee21352d09c, type: 2}
+  - {fileID: 2100000, guid: 23b0a247ccb1b70459753a5710eabb12, type: 2}
+  - {fileID: 2100000, guid: ec7742ca267b06a46ba74b31d419f2b7, type: 2}
 --- !u!54 &3717458515855520889
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -167,6 +172,45 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &3717458516779519130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3717458515855520895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 3717458516779519129}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &3717458516779519129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3717458515855520895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &3717458517258759185
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +250,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3717458517258759185}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -393,10 +437,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSense: 75
   playerRB: {fileID: 3717458515855520889}
-  arrow: {fileID: 0}
-  arrowPivot: {fileID: 0}
-  cancelDirection: {fileID: 0}
-  spectator: {fileID: 0}
+  walkCam: {fileID: 6889971263152959534}
+  spectatorCam: {fileID: 3717458517258759199}
 --- !u!1 &7366246473979425167
 GameObject:
   m_ObjectHideFlags: 0
