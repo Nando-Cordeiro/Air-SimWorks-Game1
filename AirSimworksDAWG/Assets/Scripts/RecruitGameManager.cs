@@ -32,9 +32,13 @@ public class RecruitGameManager : MonoBehaviour
     public Material[] desiredTraitMats;
     public TextMeshProUGUI jobText;
 
+    public RecruitManager manager;
+
     // Start is called before the first frame update
     void Start()
     {
+        manager = FindObjectOfType<RecruitManager>();
+
         cam = GetComponentInChildren<Camera>().transform;
 
         var values = System.Enum.GetValues(typeof(Occupation));
@@ -115,11 +119,11 @@ public class RecruitGameManager : MonoBehaviour
 
         jobText.text = "Occupation: " + job.ToString();
 
-        int j = 0;
-        foreach (Image i in desiredTraitIcons)
+        int i = 0;
+        foreach (Follow.Proficiancy proficiancy in desiredTraits)
         {
-            i.material = desiredTraitMats[j];
-            j++;
+            desiredTraitIcons[i].material = desiredTraitMats[(int)proficiancy];
+            i++;
         }
     }
 
@@ -133,34 +137,46 @@ public class RecruitGameManager : MonoBehaviour
             if (hit.collider.CompareTag("Recruit") && Input.GetKeyDown(KeyCode.Mouse0))
             {
                 Follow ai = hit.collider.GetComponent<Follow>();
+
+                foreach (RecruitGameManager rgm in FindObjectsOfType<RecruitGameManager>())
+                {
+                    if (aiFollowers.Contains(ai))
+                    {
+                        rgm.aiFollowers.Remove(ai);
+                        rgm.RemovePoints(GetPointValue(ai));
+                    }
+                }
+               
                 ai.target = transform;
 
                 aiFollowers.Add(ai);
+                AddPoints(GetPointValue(ai));
             }
         }
-
-        GetPointValue();
     }
 
-    void GetPointValue()
+    public void AddPoints(int pointValue)
     {
-        points = 0;
+        manager.points += pointValue;
+    }
 
-        foreach (Follow ai in aiFollowers)
-        {
-            if (ai.proficiancy == desiredTraits[0]) points += 5;
+    public void RemovePoints(int pointValue)
+    {
+        manager.points -= pointValue;
+    }
 
-            if (ai.proficiancy == desiredTraits[1]) points += 3;
-            if (ai.proficiancy == desiredTraits[2]) points += 3;
+    int GetPointValue(Follow ai)
+    {
+        if (ai.proficiancy == desiredTraits[0]) return 5;
+        if (ai.proficiancy == desiredTraits[1]) return 3;
+        if (ai.proficiancy == desiredTraits[2]) return 3;
+        if (ai.proficiancy == desiredTraits[3]) return 2;
+        if (ai.proficiancy == desiredTraits[4]) return 2;
+        if (ai.proficiancy == desiredTraits[5]) return 1;
+        if (ai.proficiancy == desiredTraits[6]) return 1;
+        if (ai.proficiancy == desiredTraits[7]) return 1;
 
-            if (ai.proficiancy == desiredTraits[3]) points += 2;
-            if (ai.proficiancy == desiredTraits[4]) points += 2;
-
-            if (ai.proficiancy == desiredTraits[5]) points += 1;
-            if (ai.proficiancy == desiredTraits[6]) points += 1;
-            if (ai.proficiancy == desiredTraits[7]) points += 1;
-        }
-
+        return 0;
     }
 
 }

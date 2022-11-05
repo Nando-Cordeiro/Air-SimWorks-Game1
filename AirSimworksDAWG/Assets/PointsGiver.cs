@@ -27,6 +27,8 @@ public class PointsGiver : MonoBehaviour
 
         foreach (MazeGameManager mgm in FindObjectsOfType<MazeGameManager>()) FindObjectOfType<MazeGameManager>().points += points;
 
+        foreach (RecruitManager rgm in FindObjectsOfType<RecruitManager>()) FindObjectOfType<RecruitManager>().points += points; 
+
         if (points > totalPoints) totalPoints = points;
     }
 
