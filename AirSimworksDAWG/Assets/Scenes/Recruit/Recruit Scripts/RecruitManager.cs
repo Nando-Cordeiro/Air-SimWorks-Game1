@@ -59,8 +59,8 @@ public class RecruitManager : MonoBehaviour
         dm.lastGamesPoints = points; // set after every game
 
         // set per level
-        dm.skill1 = DataManager.Skills.StrategicThinking;
-        dm.skill2 = DataManager.Skills.DecisionMaking;
+        dm.skill1 = DataManager.Skills.FostersInclusion;
+        dm.skill2 = DataManager.Skills.Teamwork;
 
         if (!PhotonNetwork.IsMasterClient)
         {

@@ -48,9 +48,8 @@ public class PointsGiver : MonoBehaviour
         }
         else if (gameType.gameType == StartGame.GameType.Recruit)
         {
-            // TODO: change these
-            dataManager.strategicThinkingLvl += totalPoints / 2;
-            dataManager.decisionMakingLvl += totalPoints / 2;
+            dataManager.fostersInclusionLvl += totalPoints / 2;
+            dataManager.teamworkLvl += totalPoints / 2;
         }
         else if (gameType.gameType == StartGame.GameType.Maze)
         {
