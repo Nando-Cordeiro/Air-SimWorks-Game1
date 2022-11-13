@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,9 +29,17 @@ public class PlayerMovement : MonoBehaviour
     public PhotonView view;
 
     public int playerNumberInRoom;
+    int playerNum;
     public int activeArrow;
+    public bool badArrow;
+
+    // for local checks
+    int lastArrowGotten;
+    bool arrowChecked;
 
     public Material[] teamColors;
+
+    PlayerMovement partner;
 
     private void Awake()
     {
@@ -39,11 +48,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        //SpawnPlayer();
+        view = GetComponent<PhotonView>(); // needs to be here to avoid errors
         mm = FindObjectOfType<MazeGameManager>();
 
+        if (!view.IsMine) return;
+
+        //SpawnPlayer();
+        mm.mazeUI.playersView = this;
+
         mm.playerCam = cam;
-        view = GetComponent<PhotonView>();
 
         if (playerNumberInRoom % 2 == 0)
         {
@@ -52,22 +65,65 @@ public class PlayerMovement : MonoBehaviour
         }
 
         SetTeamColor();
+
+        view.RPC("RPC_UpdateNumber", RpcTarget.All);
     }
 
     void Update()
     {
-        view.RPC("RPC_UpdateNumber", RpcTarget.All);
-
         if (view.IsMine) GetInput();
         else
         {
-            cam.walkCam.enabled = false; // needs to be tested
-            cam.spectatorCam.enabled = false;
+            if (cam.gameObject.activeSelf)
+            {
+                cam.spectatorCam.gameObject.SetActive(false);
+                cam.gameObject.SetActive(false);
+            }
+
+            return;
+        }
+
+        if (!view.IsMine) return; // just to be sure though should never be reached
+
+        playerNum = FindObjectOfType<PhotonRoom>().myNumberInRoom;
+
+        //view.RPC("RPC_UpdateNumber", RpcTarget.All);
+
+        if (partner == null) // search for partner
+        {
+            foreach (PlayerMovement p in FindObjectsOfType<PlayerMovement>()) 
+            {
+                if (playerNumberInRoom % 2 == 0)
+                {
+                    if (p.playerNumberInRoom == playerNumberInRoom - 1) partner = p;
+                }
+                else
+                {
+                    if (p.playerNumberInRoom == playerNumberInRoom + 1) partner = p;
+                }
+            }
+        }
+
+        if (partner != null) // get their data
+        {
+            if (!mm.mazeUI.spectating && partner.activeArrow != lastArrowGotten)
+            {
+                lastArrowGotten = partner.activeArrow;
+                activeArrow = partner.activeArrow;
+                badArrow = false;
+            }
+            else if (mm.mazeUI.spectating && !arrowChecked)
+            {
+                arrowChecked = true;
+                badArrow = partner.badArrow;
+            }
         }
     }
 
     private void FixedUpdate()
     {
+        if (!view.IsMine) return;
+
         ApplyFriction();
         MovePlayer();
         playerRB.velocity = friction;
@@ -109,8 +165,11 @@ public class PlayerMovement : MonoBehaviour
     [PunRPC]
     public void RPC_UpdateNumber()
     {
-        playerNumberInRoom = FindObjectOfType<PhotonRoom>().myNumberInRoom;
+        if (!view.IsMine) return;
+
+        playerNumberInRoom = playerNum;
         activeArrow = mm.mazeUI.activeArrow;
+        badArrow = mm.mazeUI.badArrow;
     }
 
     public void SetTeamColor()

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
@@ -13,8 +14,12 @@ public class Movement : MonoBehaviour
 
 	public static Movement instance;
 
+	PhotonView view;
+
 	void Awake()
 	{
+		view = GetComponent<PhotonView>();
+
 		instance = this;
 	}
 
@@ -37,6 +42,8 @@ public class Movement : MonoBehaviour
 
 	void Update()
 	{
+		if (!view.IsMine) return;
+
 		// Input
 		if (Focused)
 			UpdateInput();

@@ -11,10 +11,13 @@ public class MazeUI : MonoBehaviour
 
     public TextMeshProUGUI teamColorText;
 
+    public PlayerMovement playersView;
+
     [Header("Spectator")]
     public GameObject s_UI;
     public Image[] s_arrows;
     public int activeArrow;
+    public bool badArrow; 
 
     [Header("Walker")]
     public GameObject w_UI;
@@ -41,8 +44,17 @@ public class MazeUI : MonoBehaviour
             s_UI.SetActive(false);
             w_UI.SetActive(true);
 
-            if (Input.GetKeyDown(KeyCode.Space)) s_arrows[activeArrow].transform.parent.GetChild(1).gameObject.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SetWrongArrowActive();
+                badArrow = true;
+            }
         }
+    }
+
+    public void SetWrongArrowActive()
+    {
+        s_arrows[activeArrow].transform.parent.GetChild(1).gameObject.SetActive(true);
     }
 
     [PunRPC]
@@ -51,6 +63,7 @@ public class MazeUI : MonoBehaviour
         foreach (var a in s_arrows)
         {
             a.transform.parent.GetChild(1).gameObject.SetActive(false);
+            
 
             a.color = new Color(255f, 255f, 255f, 0.078f);
         }
@@ -60,5 +73,8 @@ public class MazeUI : MonoBehaviour
         w_arrows[i].color = new Color(255f, 255f, 255f, 255f);
 
         activeArrow = i;
+        badArrow = false;
+
+        playersView.view.RPC("RPC_UpdateNumber", RpcTarget.All);
     }
 }
