@@ -20,6 +20,8 @@ public class FPSGameManager : MonoBehaviour
     public Gun player;
 
     [Header("UI")]
+    public GameObject parentUIObj;
+    public GameObject deadUI;
     public Slider nextWeaponSlider;
     public TextMeshProUGUI nextWeaponText;
     public TextMeshProUGUI timeText;
@@ -64,7 +66,9 @@ public class FPSGameManager : MonoBehaviour
             player = FindObjectOfType<Gun>();
         }
 
-        if (!player.view.IsMine) return;
+        if (player.view == null || !player.view.IsMine) return;
+
+        if (player.isDead) return;
 
         if (points >= pointsToNextWeapon)
         {
@@ -127,6 +131,12 @@ public class FPSGameManager : MonoBehaviour
         }
     }
 
+    public void DieUIHandler()
+    {
+        parentUIObj.SetActive(false);
+        deadUI.SetActive(true);
+    }
+
     private void OnGUI()
     {
         if (nextWeaponSlider != null)
@@ -142,14 +152,14 @@ public class FPSGameManager : MonoBehaviour
 
     void EndGame()
     {
-        FindObjectOfType<PointsGiver>().GiveOutPoints();
-
         DataManager dm = FindObjectOfType<DataManager>();
         dm.lastGamesPoints = totalPoints; // set after every game
 
         // set per level
         dm.skill1 = DataManager.Skills.StrategicThinking;
         dm.skill2 = DataManager.Skills.DecisionMaking;
+
+        FindObjectOfType<PointsGiver>().GiveOutPoints();
 
         if (!PhotonNetwork.IsMasterClient)
         {

@@ -5,8 +5,8 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
 
-    public GameObject Hud;
-    public GameObject Store;
+    public GameObject hud;
+    public GameObject store;
     public bool isOpen = true;
 
     public static MenuManager instance;
@@ -16,57 +16,36 @@ public class MenuManager : MonoBehaviour
         instance = this;
     }
 
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            storeOpenAndClose();
+            StoreOpenAndClose();
         }
-            
-        
-        
-
     }
 
-    public void storeOpenAndClose()
+    public void StoreOpenAndClose()
     {
-        
         isOpen = !isOpen;
 
-        if (isOpen == false)
+        if (!isOpen)
         {
-            Hud.SetActive(isOpen);
-            Store.SetActive(!isOpen);
+            hud.SetActive(isOpen);
+            store.SetActive(!isOpen);
             Movement.instance.acceleration = 0;
             Movement.instance.lookSensitivity = 0;
-            Cursor.visible = !isOpen;
-            unlockCursor();
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
-        else if (isOpen == true)
+        else if (isOpen)
         {
-            Hud.SetActive(isOpen);
-            Store.SetActive(!isOpen);
+            hud.SetActive(isOpen);
+            store.SetActive(!isOpen);
             Movement.instance.acceleration = 50;
             Movement.instance.lookSensitivity = 2;
-            Cursor.visible = !isOpen;
-            lockCursor();
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
 
         }
     }
-
-    private static void unlockCursor()
-    {
-        Cursor.lockState = CursorLockMode.None;
-
-    }
-
-    private static void lockCursor()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-
-    }
-
-
-
 }

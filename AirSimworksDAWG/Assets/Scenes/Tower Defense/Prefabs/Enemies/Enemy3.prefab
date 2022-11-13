@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 5305613869246644310}
   - component: {fileID: 1917835510597468861}
   - component: {fileID: 1816365322239570531}
+  - component: {fileID: 1646919999}
   m_Layer: 0
   m_Name: DisplayHealth
   m_TagString: Untagged
@@ -210,6 +211,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1646919999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3003692998696034310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 213d5325c373e2d4ebfc85fc40f0706e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!1 &4761821980754865687
 GameObject:
   m_ObjectHideFlags: 0

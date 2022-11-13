@@ -1318,7 +1318,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5863622567624121589}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10d969f49c8a9424eacb702de19b19d3, type: 3}
   m_Name: 
@@ -1337,6 +1337,7 @@ MonoBehaviour:
   doSpread: 0
   activeModel: 0
   fullAuto: 0
+  isDead: 0
   totalPoints: 0
 --- !u!114 &3828039573376019867
 MonoBehaviour:
@@ -1373,6 +1374,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 5863622567557215000}
   - {fileID: 3828039573376019867}
   sceneViewId: 0
   InstantiationId: 0

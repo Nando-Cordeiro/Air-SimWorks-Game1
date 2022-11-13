@@ -1,15 +1,17 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 public class TowerDefenseGameManager : MonoBehaviour
 {
-    [SerializeField] Text[] gameTimeTexts;
-    [SerializeField] float gameTime;
+    [Header("Stats")]
+    public int totalKills;
+    public int currentWave;
     [SerializeField] float drainRate;
-    [SerializeField] List<GameObject> enemies;
-    float gameTimer;
 
     [SerializeField] int waveCredits;
     int playerCredits;
@@ -18,11 +20,17 @@ public class TowerDefenseGameManager : MonoBehaviour
     int enemiesLeft;
     [SerializeField] float timeBetweenEnemies;
     float enemySpawnTimer;
-    [SerializeField] GameObject StartNewWave;
-    [SerializeField] GameObject[] turretPurchaseButtons;
-    [SerializeField] Text creditDisplay;
 
     [SerializeField] LayerMask cursorLayerMask;
+
+    [Header("References")]
+    [SerializeField] TextMeshProUGUI timeText;
+    [SerializeField] TextMeshProUGUI pointsText;
+    [SerializeField] List<GameObject> enemies;
+    [SerializeField] GameObject startNewWave;
+    [SerializeField] GameObject[] turretPurchaseButtons;
+    [SerializeField] TextMeshProUGUI creditDisplay;
+    [SerializeField] TextMeshProUGUI storeCreditDisplay;
 
     [SerializeField] GameObject cursorObject;
     GameObject cursorFollow = null;
@@ -30,30 +38,63 @@ public class TowerDefenseGameManager : MonoBehaviour
     [SerializeField] GameObject defaultSelectTurret;
     [SerializeField] GameObject defaultTurret;
 
+    public Movement player;
+
+    bool started;
+
+    public int totalPoints;
+    float m, s;
+    private bool ended;
+    private int currTurretCost;
+
     private void Start()
     {
-        cursorFollow = cursorObject;
-        GainCredits(waveCredits);
-        gameTimer = gameTime;
-        lockCursor();
-    }
-
-    private static void lockCursor()
-    {
+        m = FindObjectOfType<StartGame>().gameLength / 60;
         Cursor.lockState = CursorLockMode.Locked;
+        cursorFollow = cursorObject;
 
+        GainCredits(waveCredits);
     }
 
     private void Update()
     {
-        UpdateGameTimer();
+        if (!player.view.IsMine) return;
+
+        if (m > -1) s -= Time.deltaTime;
+        else
+        {
+            // end the game if time goes below 0
+            if (!ended) EndGame();
+        }
+
+        if (s <= 0f)
+        {
+            m--;
+            s = 60;
+        }
+
         CalculateMouse();
         StartWave();
+
+        if (enemiesLeft <= 0 && FindObjectsOfType<EnemyHealth>().Length <= 0 && started)
+        {
+            EndWave();
+        }
     }
 
+    private void OnGUI()
+    {
+        if (!player.view.IsMine) return;
+
+        if (pointsText != null) pointsText.text = "Total points: " + totalPoints;
+        if (timeText != null && s >= 10f) timeText.text = "Time remaining " + m + ":" + (int)s;
+        else if (timeText != null && s < 10f) timeText.text = "Time remaining " + m + ":0" + (int)s;
+    }
 
     void CalculateMouse()
     {
+        if (Camera.main == null) return;
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, cursorLayerMask))
         {
@@ -62,14 +103,11 @@ public class TowerDefenseGameManager : MonoBehaviour
             if(cursorFollow != cursorObject)
             {
                 cursorFollow.transform.position = cursorObject.transform.position;
-                if (Input.GetMouseButtonDown(0))
-                {
-                    PlaceTurret();
-                }
+                if (Input.GetMouseButtonDown(0)) PlaceTurret();
+
+                if (Input.GetMouseButtonDown(1)) CancelTurret();
             }
         }
-
-
     }
 
     void PlaceTurret()
@@ -78,45 +116,26 @@ public class TowerDefenseGameManager : MonoBehaviour
         cursorFollow = cursorObject;
         Instantiate(defaultTurret, cursorFollow.transform.position, Quaternion.identity);
         Destroy(previousObj);
+        playerCredits -= currTurretCost;
+        UpdateCreditDisplay();
     }
 
-    void UpdateGameTimer()
+    void CancelTurret()
     {
-        //update display
-        foreach (Text gameTimeText in gameTimeTexts)
-        {
-            gameTimeText.text = gameTimer.ToString("F2");
-        }
-
-        //count down
-        if (gameTimer >= 0)
-        {
-            gameTimer -= (Time.deltaTime * drainRate);
-        }
-        else
-        {
-            gameTimer = 0;
-        }
+        GameObject previousObj = cursorFollow;
+        cursorFollow = cursorObject;
+        Destroy(previousObj);
     }
 
     public void StartWave()
     {
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.N) && FindObjectsOfType<EnemyHealth>().Length <= 0)
         {
-            SetPurchaseActive(false);
+            started = true;
+            startNewWave.SetActive(false);
             enemiesLeft = numWaveEnemies;
             SpawnEnemies();
             StartCoroutine(CountDownSpawn());
-        }
-        
-
-    }
-
-    void SetPurchaseActive(bool enabled)
-    {
-        foreach(GameObject purchaseOption in turretPurchaseButtons)
-        {
-            purchaseOption.SetActive(enabled);
         }
     }
 
@@ -133,10 +152,6 @@ public class TowerDefenseGameManager : MonoBehaviour
             SpawnEnemies();
             StartCoroutine(CountDownSpawn());
         }
-        else
-        {
-            EndWave();
-        }
     }
 
     void SpawnEnemies()
@@ -151,9 +166,12 @@ public class TowerDefenseGameManager : MonoBehaviour
 
     void EndWave()
     {
-        SetPurchaseActive(true);
-        StartNewWave.SetActive(true);
+        totalPoints += 150;
+
+        started = false;
+        startNewWave.SetActive(true);
         GainCredits(waveCredits);
+        currentWave++;
     }
 
     void GainCredits(int numCredits)
@@ -172,9 +190,8 @@ public class TowerDefenseGameManager : MonoBehaviour
         if(playerCredits >= turretCost)
         {
             Debug.Log("Purchased Turret");
-            MenuManager.instance.storeOpenAndClose();
-            playerCredits -= turretCost;
-            UpdateCreditDisplay();
+            MenuManager.instance.StoreOpenAndClose();
+            currTurretCost = turretCost;
             cursorFollow = Instantiate(defaultSelectTurret, cursorFollow.transform.position, Quaternion.identity);
         }
     }
@@ -182,5 +199,27 @@ public class TowerDefenseGameManager : MonoBehaviour
     void UpdateCreditDisplay()
     {
         creditDisplay.text = "Credits: " + playerCredits.ToString();
+        storeCreditDisplay.text = "Credits: " + playerCredits.ToString();
+    }
+
+    void EndGame()
+    {
+        DataManager dm = FindObjectOfType<DataManager>();
+        dm.lastGamesPoints = totalPoints; // set after every game
+
+        // set per level
+        dm.skill1 = DataManager.Skills.ResourceManagement;
+        dm.skill2 = DataManager.Skills.AnalyticalThinking;
+
+        FindObjectOfType<PointsGiver>().GiveOutPoints();
+
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+
+        ended = true;
+
+        PhotonNetwork.LoadLevel("AfterGameLobby");
     }
 }

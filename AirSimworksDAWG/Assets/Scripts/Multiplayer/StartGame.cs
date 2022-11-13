@@ -62,7 +62,8 @@ public class StartGame : MonoBehaviour
         {
             CharacterController c = g.GetComponent<CharacterController>();
             ArcadeCar ac = g.GetComponent<ArcadeCar>();
-
+            PlayerMovement pm = g.GetComponent<PlayerMovement>();
+            Movement m = g.GetComponent<Movement>();
 
             if (c != null)
             {
@@ -90,6 +91,10 @@ public class StartGame : MonoBehaviour
                 g.GetComponent<Rigidbody>().isKinematic = false;
                 g.transform.parent.GetChild(1).gameObject.SetActive(true);
                 g.transform.parent.GetChild(2).gameObject.SetActive(true);
+            }
+            else if (m != null)
+            {
+                g.GetComponentInChildren<Camera>().enabled = true;
             }
             else
             {

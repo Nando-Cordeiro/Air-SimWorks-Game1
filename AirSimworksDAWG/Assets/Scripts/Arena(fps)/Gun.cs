@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class Gun : MonoBehaviourPunCallbacks, IPunObservable
 {
     [Header("References")]
     public Camera fpsCam;
@@ -21,6 +21,9 @@ public class Gun : MonoBehaviour
     public bool doSpread;
     public int activeModel = 0;
     public bool fullAuto;
+    public int health = 1;
+
+    public bool isDead;
 
     public int totalPoints;
 
@@ -34,6 +37,8 @@ public class Gun : MonoBehaviour
     void Update()
     {
         if (!GetComponent<PhotonView>().IsMine) return; // if the object isnt mine do nothing
+
+        if (isDead) return;
 
         timeShots -= Time.time;
 
@@ -86,7 +91,7 @@ public class Gun : MonoBehaviour
         //GameObject _b = Instantiate(bullet, firepoint.position, firepoint.rotation);
         //_b.GetComponent<Rigidbody>().AddForce(shootSpeed * fpsCam.transform.forward);
 
-        // saving this if you want it
+        // raycast version
 
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit))
@@ -108,8 +113,9 @@ public class Gun : MonoBehaviour
             }
             else if (hit.collider.tag == "Player")
             {
-                if (hit.collider.GetComponent<PhotonView>())
+                if (hit.collider.GetComponent<PhotonView>() != null)
                 {
+                    hit.collider.GetComponentInChildren<Gun>().health--;
                     hit.collider.GetComponentInChildren<Gun>().Die();
                 }
             }
@@ -131,5 +137,24 @@ public class Gun : MonoBehaviour
         Debug.Log("darn im dead :(");
 
         // do some stuff
+        isDead = true;
+
+        foreach (GameObject g in models) g.SetActive(false);
+
+        manager.DieUIHandler();
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(health);
+            stream.SendNext(isDead);
+        }
+        else
+        {
+            health = (int)stream.ReceiveNext();
+            isDead = (bool)stream.ReceiveNext();
+        }
     }
 }

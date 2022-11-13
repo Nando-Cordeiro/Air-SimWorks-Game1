@@ -1,7 +1,8 @@
 using Photon.Pun;
+using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
+//[RequireComponent(typeof(Camera))]
 public class Movement : MonoBehaviour
 {
 	public float acceleration = 50; 
@@ -12,46 +13,41 @@ public class Movement : MonoBehaviour
 
 	Vector3 velocity;
 
+	[Header("References")]
 	public static Movement instance;
 
-	PhotonView view;
+	public PhotonView view;
+
+	public TextMeshProUGUI statsText;
+
+	TowerDefenseGameManager manager;
+
+	public int kills, waves;
 
 	void Awake()
 	{
 		view = GetComponent<PhotonView>();
 
+		manager = FindObjectOfType<TowerDefenseGameManager>();
+
 		instance = this;
-	}
 
-	static bool Focused
-	{
-		get => Cursor.lockState == CursorLockMode.Locked;
-		set
-		{
-			Cursor.lockState = value ? CursorLockMode.Locked : CursorLockMode.None;
-			Cursor.visible = value == false;
-		}
+		if (view.IsMine) FindObjectOfType<TowerDefenseGameManager>().player = this;
 	}
-
-	void OnEnable()
-	{
-		if (focusOnEnable) Focused = true;
-	}
-
-	void OnDisable() => Focused = false;
 
 	void Update()
 	{
 		if (!view.IsMine) return;
 
-		// Input
-		if (Focused)
-			UpdateInput();
-		else if (Input.GetMouseButtonDown(0))
-			Focused = true;
+		if (FindObjectOfType<PhotonRoom>() != null) view.RPC("UpdateStats", RpcTarget.All);
 
-		// Physics
-		velocity = Vector3.Lerp(velocity, Vector3.zero, dampingCoefficient * Time.deltaTime);
+        // Input
+        if (!Cursor.visible) UpdateInput();
+
+		if (Input.GetMouseButtonDown(0) && MenuManager.instance.isOpen) lockCursor();
+
+        // Physics
+        velocity = Vector3.Lerp(velocity, Vector3.zero, dampingCoefficient * Time.deltaTime);
 		transform.position += velocity * Time.deltaTime;
 	}
 
@@ -60,11 +56,22 @@ public class Movement : MonoBehaviour
 		lockCursor();
     }
 
-
     private static void lockCursor()
-	{
-		Cursor.lockState = CursorLockMode.Locked;
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+	}
 
+	[PunRPC]
+	public void UpdateStats()
+	{
+		if (manager != null)
+		{
+			waves = manager.currentWave;
+			kills = 0;
+
+			statsText.text = "Total Kills: " + kills + "\n" + "Waves Passed: " + waves;
+		}
 	}
 
 	void UpdateInput()
@@ -79,9 +86,6 @@ public class Movement : MonoBehaviour
 		Quaternion vert = Quaternion.AngleAxis(mouseDelta.y, Vector3.right);
 		transform.rotation = horiz * rotation * vert;
 
-		// Leave cursor lock
-		if (Input.GetKeyDown(KeyCode.Escape))
-			Focused = false;
 	}
 
 	Vector3 GetAccelerationVector()

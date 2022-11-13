@@ -12,9 +12,14 @@ public class LookAtPlayer : MonoBehaviour
     {
         if (target == null)
         {
-            foreach (playerController t in FindObjectsOfType<playerController>())
+            //foreach (playerController t in FindObjectsOfType<playerController>())
+            //{
+            //    if (t.GetComponent<PhotonView>().IsMine) target = t.transform;
+            //}
+
+            foreach (PhotonView view in FindObjectsOfType<PhotonView>())
             {
-                if (t.GetComponent<PhotonView>().IsMine) target = t.transform;
+                if (view.IsMine) target = view.transform;
             }
         }
 

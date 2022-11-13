@@ -254,7 +254,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         else if (playerType == "Recruit")       g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player Variant"), transform.position, Quaternion.identity, 0);
         else if (playerType == "Maze")          g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "MazePlayer"), transform.position, Quaternion.identity, 0);
         else if (playerType == "Car")           g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CarGamePlayer"), transform.position, Quaternion.identity, 0);
-        else if (playerType == "TowerDefense")  g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), transform.position, Quaternion.identity, 0);
+        else if (playerType == "Tower Defense")  g = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "TowerDefensePlayer"), transform.position, Quaternion.identity, 0);
         else Debug.LogError("@ty your dumbass spelt shit wrong again >:(");
         //if (players.Count <= playersInRoom) 
         players.Add(g);
