@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
 {
     [Header("Movement Settings")]
     [SerializeField] float walkSpeed;
@@ -28,10 +28,10 @@ public class PlayerMovement : MonoBehaviour
 
     public PhotonView view;
 
-    public int playerNumberInRoom;
-    int playerNum;
-    public int activeArrow;
-    public bool badArrow;
+    public int playerNumberInRoom = 0;
+    int playerNum = 0;
+    public int activeArrow = 0;
+    public bool badArrow = false;
 
     // for local checks
     int lastArrowGotten;
@@ -66,7 +66,9 @@ public class PlayerMovement : MonoBehaviour
 
         SetTeamColor();
 
-        view.RPC("RPC_UpdateNumber", RpcTarget.All);
+        UpdateNumbers();
+
+        //view.RPC("RPC_UpdateNumber", RpcTarget.All);
     }
 
     void Update()
@@ -88,6 +90,8 @@ public class PlayerMovement : MonoBehaviour
         playerNum = FindObjectOfType<PhotonRoom>().myNumberInRoom;
 
         //view.RPC("RPC_UpdateNumber", RpcTarget.All);
+
+        UpdateNumbers();
 
         if (partner == null) // search for partner
         {
@@ -165,8 +169,13 @@ public class PlayerMovement : MonoBehaviour
     [PunRPC]
     public void RPC_UpdateNumber()
     {
-        if (!view.IsMine) return;
-
+        playerNumberInRoom = playerNum;
+        activeArrow = mm.mazeUI.activeArrow;
+        badArrow = mm.mazeUI.badArrow;
+    }
+    
+    public void UpdateNumbers()
+    {
         playerNumberInRoom = playerNum;
         activeArrow = mm.mazeUI.activeArrow;
         badArrow = mm.mazeUI.badArrow;
@@ -210,5 +219,21 @@ public class PlayerMovement : MonoBehaviour
 
         // my update pos
         if (partner != null) transform.SetPositionAndRotation(partner.transform.position, partner.transform.rotation);
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(playerNumberInRoom);
+            stream.SendNext(activeArrow);
+            stream.SendNext(badArrow);
+        }
+        else
+        {
+            playerNumberInRoom = (int)stream.ReceiveNext();
+            activeArrow = (int)stream.ReceiveNext();
+            badArrow = (bool)stream.ReceiveNext();
+        }
     }
 }

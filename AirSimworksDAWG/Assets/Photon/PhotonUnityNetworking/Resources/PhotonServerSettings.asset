@@ -49,6 +49,7 @@ MonoBehaviour:
   - RPC_UpdateNumber
   - UpdateArrow
   - UpdateStats
+  - DieModel
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

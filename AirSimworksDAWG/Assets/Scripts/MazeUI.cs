@@ -75,6 +75,6 @@ public class MazeUI : MonoBehaviour
         activeArrow = i;
         badArrow = false;
 
-        playersView.view.RPC("RPC_UpdateNumber", RpcTarget.All);
+        //playersView.view.RPC("RPC_UpdateNumber", RpcTarget.All);
     }
 }

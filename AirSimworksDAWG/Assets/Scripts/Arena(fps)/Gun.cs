@@ -12,6 +12,8 @@ public class Gun : MonoBehaviourPunCallbacks, IPunObservable
     FPSGameManager manager;
     public GameObject[] models;
     public GameObject shield;
+    public GameObject deathObj;
+    public GameObject playerMesh;
     public PhotonView view;
 
     [Header("Stats")]
@@ -38,7 +40,11 @@ public class Gun : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (!GetComponent<PhotonView>().IsMine) return; // if the object isnt mine do nothing
 
-        if (isDead) return;
+        if (isDead)
+        {
+            view.RPC("DieModel", RpcTarget.All);
+            return;
+        }
 
         timeShots -= Time.time;
 
@@ -78,7 +84,13 @@ public class Gun : MonoBehaviourPunCallbacks, IPunObservable
 
         // set stats
 
+    }
 
+    [PunRPC]
+    public void DieModel()
+    {
+        deathObj.SetActive(true);
+        playerMesh.SetActive(false);
     }
 
     [PunRPC]
