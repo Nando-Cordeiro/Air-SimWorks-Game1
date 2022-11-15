@@ -66,9 +66,11 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
 
         SetTeamColor();
 
-        UpdateNumbers();
+        //UpdateNumbers();
 
-        //view.RPC("RPC_UpdateNumber", RpcTarget.All);
+        playerNum = FindObjectOfType<PhotonRoom>().myNumberInRoom;
+
+        view.RPC("RPC_UpdateNumber", RpcTarget.All);
     }
 
     void Update()
@@ -87,11 +89,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
 
         if (!view.IsMine) return; // just to be sure though should never be reached
 
-        playerNum = FindObjectOfType<PhotonRoom>().myNumberInRoom;
-
-        //view.RPC("RPC_UpdateNumber", RpcTarget.All);
-
-        UpdateNumbers();
+        if (FindObjectOfType<PhotonRoom>() != null) view.RPC("RPC_UpdateNumber", RpcTarget.All);
 
         if (partner == null) // search for partner
         {
@@ -169,16 +167,17 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void RPC_UpdateNumber()
     {
+        if (!view.IsMine) return;
+
         playerNumberInRoom = playerNum;
-        activeArrow = mm.mazeUI.activeArrow;
-        badArrow = mm.mazeUI.badArrow;
-    }
-    
-    public void UpdateNumbers()
-    {
-        playerNumberInRoom = playerNum;
-        activeArrow = mm.mazeUI.activeArrow;
-        badArrow = mm.mazeUI.badArrow;
+
+        if (mm != null && mm.mazeUI != null)
+        {
+            activeArrow = mm.mazeUI.activeArrow;
+            badArrow = mm.mazeUI.badArrow;
+        }
+
+        Debug.Log("Updated numbers: PN = " + playerNum + ", AA = " + activeArrow + ", BA = " + badArrow);
     }
 
     public void SetTeamColor()
@@ -223,17 +222,17 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(playerNumberInRoom);
-            stream.SendNext(activeArrow);
-            stream.SendNext(badArrow);
-        }
-        else
-        {
-            playerNumberInRoom = (int)stream.ReceiveNext();
-            activeArrow = (int)stream.ReceiveNext();
-            badArrow = (bool)stream.ReceiveNext();
-        }
+        //if (stream.IsWriting)
+        //{
+        //    stream.SendNext(playerNumberInRoom);
+        //    stream.SendNext(activeArrow);
+        //    stream.SendNext(badArrow);
+        //}
+        //else
+        //{
+        //    playerNumberInRoom = (int)stream.ReceiveNext();
+        //    activeArrow = (int)stream.ReceiveNext();
+        //    badArrow = (bool)stream.ReceiveNext();
+        //}
     }
 }
