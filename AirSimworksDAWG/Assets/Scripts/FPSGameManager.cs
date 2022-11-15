@@ -41,7 +41,12 @@ public class FPSGameManager : MonoBehaviour
         nextWeaponSlider.maxValue = pointsToNextWeapon;
         nextWeaponSlider.value = points;
 
-        player = FindObjectOfType<Gun>(); // todo: check player for local
+        foreach (var gun in FindObjectsOfType<Gun>())
+        {
+            if (gun.view.IsMine) player = gun;
+        }
+
+        //player = FindObjectOfType<Gun>(); // todo: check player for local
     }
 
     // Update is called once per frame

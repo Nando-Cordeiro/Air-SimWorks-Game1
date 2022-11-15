@@ -15,6 +15,7 @@ public class Gun : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject deathObj;
     public GameObject playerMesh;
     public PhotonView view;
+    public ParticleSystem[] muzzleFlashs;
 
     [Header("Stats")]
     public float shootSpeed = 1f;
@@ -38,11 +39,11 @@ public class Gun : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if (!GetComponent<PhotonView>().IsMine) return; // if the object isnt mine do nothing
+        if (!view.IsMine) return; // if the object isnt mine do nothing
 
         if (isDead)
         {
-            view.RPC("DieModel", RpcTarget.All);
+            manager.DieUIHandler();
             return;
         }
 
@@ -98,6 +99,8 @@ public class Gun : MonoBehaviourPunCallbacks, IPunObservable
     {
         timeShots = timeBetweenShots;
 
+        muzzleFlashs[activeModel].Play();
+
         // this one uses a projectile
 
         //GameObject _b = Instantiate(bullet, firepoint.position, firepoint.rotation);
@@ -125,11 +128,14 @@ public class Gun : MonoBehaviourPunCallbacks, IPunObservable
             }
             else if (hit.collider.tag == "Player")
             {
-                if (hit.collider.GetComponent<PhotonView>() != null)
-                {
-                    hit.collider.GetComponentInChildren<Gun>().health--;
-                    hit.collider.GetComponentInChildren<Gun>().Die();
-                }
+                hit.collider.GetComponentInChildren<Gun>().health--;
+                hit.collider.GetComponentInChildren<Gun>().view.RPC("Die", RpcTarget.All);
+
+                //if (hit.collider.GetComponent<PhotonView>() != null)
+                //{
+                //    hit.collider.GetComponentInChildren<Gun>().health--;
+                //    hit.collider.GetComponentInChildren<Gun>().Die();
+                //}
             }
         }
 
@@ -144,16 +150,19 @@ public class Gun : MonoBehaviourPunCallbacks, IPunObservable
         shield.SetActive(false);
     }
 
+    [PunRPC]
     public void Die()
     {
+        //if (view.IsMine) return;
+
         Debug.Log("darn im dead :(");
+
+        view.RPC("DieModel", RpcTarget.All);
 
         // do some stuff
         isDead = true;
 
         foreach (GameObject g in models) g.SetActive(false);
-
-        manager.DieUIHandler();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
