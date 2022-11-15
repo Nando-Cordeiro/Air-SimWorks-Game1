@@ -53,14 +53,14 @@ public class RecruitManager : MonoBehaviour
 
     void EndGame()
     {
-        FindObjectOfType<PointsGiver>().GiveOutPoints();
-
         DataManager dm = FindObjectOfType<DataManager>();
         dm.lastGamesPoints = points; // set after every game
 
         // set per level
         dm.skill1 = DataManager.Skills.FostersInclusion;
         dm.skill2 = DataManager.Skills.Teamwork;
+
+        FindObjectOfType<PointsGiver>().GiveOutPoints();
 
         if (!PhotonNetwork.IsMasterClient)
         {
